@@ -11,30 +11,36 @@ class Dashboard extends CI_Controller
 
         $this->load->model('M_dashboard');
 
-        // =========================
-        // PROTEKSI LOGIN (WAJIB)
-        // =========================
         if (!$this->session->userdata('id')) {
             redirect('login');
         }
     }
 
-    // =========================
-    // DASHBOARD UTAMA
-    // =========================
     public function index()
     {
         $user_id = $this->session->userdata('id');
 
         $data['title'] = 'Dashboard';
-        $data['user']  = $this->M_dashboard->get_user_by_id($user_id);
+        $data['user'] = $this->M_dashboard->get_user_by_id($user_id);
 
-        // statistik (aman kalau tabel belum ada)
+        // =========================
+        // STATISTIK DASHBOARD
+        // =========================
+
         $data['jumlah_destinasi'] = $this->db->table_exists('destinasi')
             ? $this->M_dashboard->count_destinasi() : 0;
 
         $data['jumlah_hotel'] = $this->db->table_exists('hotel')
             ? $this->M_dashboard->count_hotel() : 0;
+
+        $data['jumlah_kuliner'] = $this->db->table_exists('kuliner')
+            ? $this->M_dashboard->count_kuliner() : 0;
+
+        $data['jumlah_oleh_oleh'] = $this->db->table_exists('oleh_oleh')
+            ? $this->M_dashboard->count_oleh_oleh() : 0;
+
+        $data['jumlah_pernak_pernik'] = $this->db->table_exists('pernak_pernik')
+            ? $this->M_dashboard->count_pernak_pernik() : 0;
 
         $data['jumlah_berita'] = $this->db->table_exists('berita')
             ? $this->M_dashboard->count_berita() : 0;
@@ -50,7 +56,10 @@ class Dashboard extends CI_Controller
 
         $data['jumlah_pengguna'] = $this->M_dashboard->count_pengguna();
 
-        // data terbaru
+        // =========================
+        // DATA TERBARU
+        // =========================
+
         $data['destinasi_terbaru'] = $this->db->table_exists('destinasi')
             ? $this->M_dashboard->destinasi_terbaru() : [];
 
@@ -60,7 +69,10 @@ class Dashboard extends CI_Controller
         $data['kontak_terbaru'] = $this->db->table_exists('kontak')
             ? $this->M_dashboard->kontak_terbaru() : [];
 
-        // load view
+        // =========================
+        // LOAD VIEW
+        // =========================
+
         $this->load->view('backend/template/v_header', $data);
         $this->load->view('backend/template/v_sidebar', $data);
         $this->load->view('backend/template/v_index', $data);

@@ -14,10 +14,17 @@ class Pengguna extends CI_Controller
         $this->load->model('M_pengguna');
     }
 
+
+    // =========================
+    // HALAMAN PROFIL ADMIN
+    // =========================
+
     public function index()
     {
-        $data['title'] = 'Data Pengguna';
-        $data['pengguna'] = $this->M_pengguna->get_all();
+        $data['title'] = 'Profil Administrator';
+
+        // hanya mengambil 1 admin
+        $data['pengguna'] = $this->M_pengguna->get_admin();
 
         $this->load->view('backend/template/v_header', $data);
         $this->load->view('backend/template/v_sidebar', $data);
@@ -25,115 +32,196 @@ class Pengguna extends CI_Controller
         $this->load->view('backend/template/v_footer');
     }
 
-    public function simpan()
-    {
-        $foto = 'default.png';
 
-        if (!empty($_FILES['pengguna_foto']['name'])) {
 
-            $config['upload_path']   = './uploads/pengguna/';
-            $config['allowed_types'] = 'jpg|jpeg|png|webp';
-            $config['encrypt_name']  = TRUE;
-
-            $this->load->library('upload', $config);
-
-            if ($this->upload->do_upload('pengguna_foto')) {
-
-                $foto = $this->upload->data('file_name');
-            }
-        }
-
-        $data = [
-            'pengguna_nama'     => $this->input->post('pengguna_nama'),
-            'pengguna_username' => $this->input->post('pengguna_username'),
-            'pengguna_password' => md5($this->input->post('pengguna_password')),
-            'pengguna_email'    => $this->input->post('pengguna_email'),
-            'pengguna_foto'     => $foto,
-            'pengguna_level'    => $this->input->post('pengguna_level'),
-            'pengguna_status'   => $this->input->post('pengguna_status')
-        ];
-
-        $this->M_pengguna->insert($data);
-
-        $this->session->set_flashdata(
-            'success',
-            'Pengguna berhasil ditambahkan'
-        );
-
-        redirect('pengguna');
-    }
+    // =========================
+    // UPDATE PROFIL ADMIN
+    // =========================
 
     public function update()
     {
         $id = $this->input->post('pengguna_id');
 
+
+        // =========================
+        // CEK USERNAME DUPLIKAT
+        // =========================
+
+        $cek_username = $this->M_pengguna
+            ->cek_username_update(
+                $this->input->post('pengguna_username'),
+                $id
+            );
+
+
+        if ($cek_username > 0) {
+
+            $this->session->set_flashdata(
+                'error',
+                'Username sudah digunakan'
+            );
+
+            redirect('pengguna');
+        }
+
+
+
+        // =========================
+        // CEK EMAIL DUPLIKAT
+        // =========================
+
+        $cek_email = $this->M_pengguna
+            ->cek_email_update(
+                $this->input->post('pengguna_email'),
+                $id
+            );
+
+
+        if ($cek_email > 0) {
+
+            $this->session->set_flashdata(
+                'error',
+                'Email sudah digunakan'
+            );
+
+            redirect('pengguna');
+        }
+
+
+
         $data = [
-            'pengguna_nama'     => $this->input->post('pengguna_nama'),
-            'pengguna_username' => $this->input->post('pengguna_username'),
-            'pengguna_email'    => $this->input->post('pengguna_email'),
-            'pengguna_level'    => $this->input->post('pengguna_level'),
-            'pengguna_status'   => $this->input->post('pengguna_status')
+
+            'pengguna_nama' =>
+            $this->input->post('pengguna_nama'),
+
+            'pengguna_username' =>
+            $this->input->post('pengguna_username'),
+
+            'pengguna_email' =>
+            $this->input->post('pengguna_email'),
+
+            'pengguna_status' =>
+            $this->input->post('pengguna_status')
+
         ];
+
+
+
+        // =========================
+        // UPDATE PASSWORD
+        // =========================
 
         if (!empty($this->input->post('pengguna_password'))) {
 
             $data['pengguna_password'] =
-                md5($this->input->post('pengguna_password'));
+                md5(
+                    $this->input->post('pengguna_password')
+                );
         }
+
+
+
+
+        // =========================
+        // UPLOAD FOTO
+        // =========================
 
         if (!empty($_FILES['pengguna_foto']['name'])) {
 
-            $config['upload_path']   = './uploads/pengguna/';
-            $config['allowed_types'] = 'jpg|jpeg|png|webp';
-            $config['encrypt_name']  = TRUE;
 
-            $this->load->library('upload', $config);
+            $config['upload_path'] =
+                './uploads/pengguna/';
+
+
+            $config['allowed_types'] =
+                'jpg|jpeg|png|webp';
+
+
+            $config['encrypt_name'] =
+                TRUE;
+
+
+
+            $this->load->library(
+                'upload',
+                $config
+            );
+
+
 
             if ($this->upload->do_upload('pengguna_foto')) {
 
-                $lama = $this->M_pengguna->get_by_id($id);
+
+                $lama =
+                    $this->M_pengguna->get_by_id($id);
+
+
 
                 if (
                     $lama &&
                     $lama->pengguna_foto != 'default.png' &&
-                    file_exists('./uploads/pengguna/' . $lama->pengguna_foto)
+                    file_exists(
+                        './uploads/pengguna/' .
+                            $lama->pengguna_foto
+                    )
                 ) {
-                    unlink('./uploads/pengguna/' . $lama->pengguna_foto);
+
+                    unlink(
+                        './uploads/pengguna/' .
+                            $lama->pengguna_foto
+                    );
                 }
+
+
 
                 $data['pengguna_foto'] =
                     $this->upload->data('file_name');
             }
         }
 
-        $this->M_pengguna->update($id, $data);
+
+
+        $this->M_pengguna->update(
+            $id,
+            $data
+        );
+
+
+
+        // update session jika nama berubah
+
+        $this->session->set_userdata(
+            'nama',
+            $data['pengguna_nama']
+        );
+
+
 
         $this->session->set_flashdata(
             'success',
-            'Pengguna berhasil diperbarui'
+            'Profil administrator berhasil diperbarui'
         );
+
 
         redirect('pengguna');
     }
 
-    public function hapus($id)
+
+
+
+
+    // =========================
+    // HAPUS DINONAKTIFKAN
+    // =========================
+
+    public function hapus()
     {
-        $data = $this->M_pengguna->get_by_id($id);
-
-        if (
-            $data &&
-            $data->pengguna_foto != 'default.png' &&
-            file_exists('./uploads/pengguna/' . $data->pengguna_foto)
-        ) {
-            unlink('./uploads/pengguna/' . $data->pengguna_foto);
-        }
-
-        $this->M_pengguna->delete($id);
 
         $this->session->set_flashdata(
-            'success',
-            'Pengguna berhasil dihapus'
+            'error',
+            'Akun administrator utama tidak dapat dihapus'
         );
+
 
         redirect('pengguna');
     }

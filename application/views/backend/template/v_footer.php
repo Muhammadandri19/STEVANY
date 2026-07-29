@@ -49,6 +49,31 @@ $controller = strtolower($this->router->fetch_class());
     </script>
 <?php endif; ?>
 
+<script>
+function konfirmasiLogout(){
+
+    Swal.fire({
+        title: 'Keluar dari sistem?',
+        text: "Anda akan keluar dari halaman administrator.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#198754',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Ya, Logout',
+        cancelButtonText: 'Batal'
+    }).then((result)=>{
+
+        if(result.isConfirmed){
+
+            window.location.href="<?= base_url('login/logout'); ?>";
+
+        }
+
+    });
+
+}
+</script>
+
 </body>
 
 </html>

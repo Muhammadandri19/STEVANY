@@ -1,187 +1,98 @@
-<!-- HERO -->
-
+<!-- HERO GALERI -->
 <section class="intro intro-single route bg-image"
-    style="background-image:url('<?= base_url('uploads/galeri/' . $galeri->foto); ?>')">
-
+    style="background-image:url('<?= !empty($galeri->foto) ? base_url('uploads/galeri/' . $galeri->foto) : base_url('assets_frontend/img/no-image.jpg'); ?>')">
     <div class="overlay-mf"></div>
-
     <div class="intro-content display-table">
-
         <div class="table-cell">
-
-            <div class="container text-center">
-
+            <div class="container">
                 <h2 class="intro-title mb-4 text-white">
-
-                    <?= $galeri->judul_foto; ?>
-
+                    <?= htmlspecialchars($galeri->destinasi_nama ?? ''); ?>
                 </h2>
-
                 <ol class="breadcrumb d-flex justify-content-center">
-
                     <li class="breadcrumb-item">
-
-                        <a href="<?= base_url(); ?>">
-                            Home
-                        </a>
-
+                        <a href="<?= base_url(); ?>">Home</a>
                     </li>
-
                     <li class="breadcrumb-item">
-
-                        <a href="<?= base_url('galeri'); ?>">
-                            Galeri Wisata
-                        </a>
-
+                        <a href="<?= base_url('galeri/semua'); ?>">Galeri</a>
                     </li>
-
                     <li class="breadcrumb-item active">
-
-                        Detail
-
+                        <?= htmlspecialchars($galeri->judul_foto ?? ''); ?>
                     </li>
-
                 </ol>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
 
-
+<!-- DETAIL GALERI -->
 <section class="sect-pt4">
-
     <div class="container">
-
         <div class="row">
 
             <!-- KONTEN -->
-
             <div class="col-lg-8">
 
                 <div class="box-shadow-full">
 
-                    <img src="<?= base_url('uploads/galeri/' . $galeri->foto); ?>"
-                        class="img-fluid rounded mb-4 w-100">
+                    <a href="<?= base_url('uploads/galeri/' . $galeri->foto); ?>" data-lightbox="galeri">
 
-                    <h3 class="title-left">
+                        <img src="<?= base_url('uploads/galeri/' . $galeri->foto); ?>"
+                            class="img-fluid rounded mb-4 w-100">
 
-                        <?= $galeri->judul_foto; ?>
+                    </a>
 
+                    <h3 class="title-left mb-4">
+                        <?= htmlspecialchars($galeri->judul_foto ?? ''); ?>
                     </h3>
 
-                    <div class="mb-4">
-
-                        <span class="badge badge-primary">
-
-                            <i class="fa fa-map-marker"></i>
-
-                            <?= $galeri->destinasi_nama; ?>
-
-                        </span>
-
-                        <span class="badge badge-success">
-
-                            <i class="fa fa-tag"></i>
-
-                            <?= $galeri->kategori_nama; ?>
-
-                        </span>
-
-                        <span class="badge badge-info">
-
-                            <i class="fa fa-calendar"></i>
-
-                            <?= date('d F Y', strtotime($galeri->created_at)); ?>
-
-                        </span>
-
-                    </div>
-
-                    <?php if (!empty($galeri->deskripsi)) : ?>
-
-                        <h4 class="mb-3">
-
-                            Tentang Foto
-
-                        </h4>
-
-                        <p class="text-justify">
-
-                            <?= nl2br($galeri->deskripsi); ?>
-
-                        </p>
-
-                    <?php endif; ?>
+                    <p>
+                        Dokumentasi foto wisata
+                        <strong><?= htmlspecialchars($galeri->destinasi_nama ?? ''); ?></strong>
+                        yang menampilkan keindahan alam, suasana, dan berbagai sudut menarik dari destinasi wisata Kabupaten Magelang.
+                    </p>
 
                 </div>
 
 
-                <!-- INFORMASI DESTINASI -->
+                <div class="box-shadow-full mt-4">
 
-                <div class="box-shadow-full">
-
-                    <h3 class="title-left">
-
-                        Informasi Destinasi
-
+                    <h3 class="title-left mb-4">
+                        Koleksi Foto <?= htmlspecialchars($galeri->destinasi_nama ?? ''); ?>
                     </h3>
 
-                    <table class="table table-bordered">
+                    <div class="row">
 
-                        <tr>
+                        <?php if (!empty($album)): ?>
 
-                            <th width="30%">Destinasi</th>
+                            <?php foreach ($album as $foto): ?>
 
-                            <td><?= $galeri->destinasi_nama; ?></td>
+                                <div class="col-md-4 mb-4">
 
-                        </tr>
+                                    <a href="<?= base_url('uploads/galeri/' . $foto->foto); ?>"
+                                        data-lightbox="galeri"
+                                        data-title="<?= htmlspecialchars($foto->judul_foto ?? ''); ?>">
 
-                        <tr>
+                                        <img src="<?= base_url('uploads/galeri/' . $foto->foto); ?>"
+                                            class="img-fluid rounded"
+                                            style="height:180px;width:100%;object-fit:cover;">
 
-                            <th>Kategori</th>
+                                    </a>
 
-                            <td><?= $galeri->kategori_nama; ?></td>
+                                </div>
 
-                        </tr>
+                            <?php endforeach; ?>
 
-                        <tr>
+                        <?php else: ?>
 
-                            <th>Alamat</th>
+                            <div class="col-md-12">
+                                <p class="text-muted">
+                                    Belum ada koleksi foto lainnya.
+                                </p>
+                            </div>
 
-                            <td><?= $galeri->alamat; ?></td>
+                        <?php endif; ?>
 
-                        </tr>
-
-                        <tr>
-
-                            <th>Jam Operasional</th>
-
-                            <td><?= $galeri->jam_operasional; ?></td>
-
-                        </tr>
-
-                        <tr>
-
-                            <th>Harga Tiket</th>
-
-                            <td><?= $galeri->harga_tiket; ?></td>
-
-                        </tr>
-
-                    </table>
-
-                    <a href="<?= base_url('destinasi/detail/' . $galeri->destinasi_id); ?>"
-                        class="btn btn-primary">
-
-                        <i class="fa fa-map"></i>
-
-                        Lihat Detail Destinasi
-
-                    </a>
+                    </div>
 
                 </div>
 
@@ -189,34 +100,32 @@
 
 
             <!-- SIDEBAR -->
-
             <div class="col-lg-4">
 
                 <div class="widget-sidebar">
 
                     <h5 class="sidebar-title">
-
-                        Galeri Lainnya
-
+                        Informasi Galeri
                     </h5>
 
                     <div class="sidebar-content">
 
-                        <ul class="list-sidebar">
+                        <ul class="list-ico">
 
-                            <?php foreach ($related as $r): ?>
+                            <li>
+                                <span class="fa fa-camera"></span>
+                                <?= htmlspecialchars($galeri->judul_foto ?? ''); ?>
+                            </li>
 
-                                <li>
+                            <li>
+                                <span class="fa fa-map-marker"></span>
+                                <?= htmlspecialchars($galeri->destinasi_nama ?? ''); ?>
+                            </li>
 
-                                    <a href="<?= base_url('galeri/detail/' . $r->galeri_id); ?>">
-
-                                        <?= $r->judul_foto; ?>
-
-                                    </a>
-
-                                </li>
-
-                            <?php endforeach; ?>
+                            <li>
+                                <span class="fa fa-tag"></span>
+                                <?= htmlspecialchars($galeri->kategori_nama ?? ''); ?>
+                            </li>
 
                         </ul>
 
@@ -225,14 +134,79 @@
                 </div>
 
 
+                <div class="widget-sidebar">
+
+                    <h5 class="sidebar-title">
+                        Tentang Galeri
+                    </h5>
+
+                    <div class="sidebar-content">
+
+                        <p>
+                            Galeri ini berisi kumpulan dokumentasi wisata
+                            <strong><?= htmlspecialchars($galeri->destinasi_nama ?? ''); ?></strong>
+                            yang memperlihatkan berbagai keindahan dan pengalaman wisata.
+                        </p>
+
+                        <a href="<?= base_url('home/detail_destinasi/' . $galeri->destinasi_id); ?>"
+                            class="btn btn-primary btn-block">
+
+                            <i class="fa fa-map-marker"></i>
+                            Lihat Detail Destinasi
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <?php if (!empty($related)): ?>
+
+                    <div class="widget-sidebar">
+
+                        <h5 class="sidebar-title">
+                            Galeri Destinasi Lain
+                        </h5>
+
+                        <div class="sidebar-content">
+
+                            <ul class="list-sidebar">
+
+                                <?php foreach ($related as $r): ?>
+
+                                    <li>
+                                        <a href="<?= base_url('galeri/detail/' . $r->galeri_id); ?>">
+                                            <?= htmlspecialchars($r->destinasi_nama ?? ''); ?>
+                                        </a>
+                                    </li>
+
+                                <?php endforeach; ?>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                <?php endif; ?>
+
+
                 <div class="widget-sidebar text-center">
 
-                    <a href="<?= base_url('galeri'); ?>"
-                        class="btn btn-outline-primary btn-block">
+                    <a href="<?= base_url('galeri/semua'); ?>"
+                        class="btn btn-primary btn-lg btn-block mb-3">
 
-                        <i class="fa fa-arrow-left"></i>
+                        <i class="fa fa-images"></i>
+                        Semua Galeri
 
-                        Kembali ke Galeri
+                    </a>
+
+                    <a href="<?= base_url(); ?>"
+                        class="btn btn-outline-secondary btn-lg btn-block">
+
+                        <i class="fa fa-home"></i>
+                        Kembali Beranda
 
                     </a>
 
@@ -241,7 +215,5 @@
             </div>
 
         </div>
-
     </div>
-
 </section>

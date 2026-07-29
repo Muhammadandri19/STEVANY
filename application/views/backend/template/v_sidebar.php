@@ -1,17 +1,13 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
     <a href="<?= base_url('dashboard'); ?>" class="brand-link text-center">
-
         <span class="brand-text font-weight-light">
             STEVANY TRAVELING
         </span>
-
     </a>
 
     <div class="sidebar">
 
         <?php
-
         $id_user = $this->session->userdata('id');
 
         $user = $this->db
@@ -25,40 +21,27 @@
 
         $foto = 'default.png';
 
-        if (
-            $user &&
-            !empty($user->pengguna_foto)
-        ) {
+        if ($user && !empty($user->pengguna_foto)) {
             $foto = $user->pengguna_foto;
         }
-
         ?>
 
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-
             <div class="image">
-
                 <img src="<?= base_url('uploads/pengguna/' . $foto); ?>"
                     class="img-circle elevation-2"
                     style="width:34px;height:34px;object-fit:cover;">
-
             </div>
 
             <div class="info">
-
-                <a href="<?= base_url('profil'); ?>"
-                    class="d-block">
-
+                <a href="<?= base_url('profil'); ?>" class="d-block">
                     <?= $user ? $user->pengguna_nama : 'Administrator'; ?>
-
                 </a>
 
                 <small class="text-success">
                     <i class="fas fa-circle"></i> Online
                 </small>
-
             </div>
-
         </div>
 
         <nav class="mt-2">
@@ -97,6 +80,21 @@
                     <a href="<?= base_url('hotel'); ?>" class="nav-link">
                         <i class="nav-icon fas fa-hotel"></i>
                         <p>Hotel / Penginapan</p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="<?= base_url('oleh_oleh'); ?>" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-bag"></i>
+                        <p>Oleh-Oleh</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('pernak_pernik'); ?>" class="nav-link">
+                        <i class="nav-icon fas fa-gift"></i>
+                        <p>Pernak-Pernik</p>
                     </a>
                 </li>
 
@@ -159,18 +157,10 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-
-                    <a href="<?= base_url('login/logout'); ?>"
-                        class="nav-link text-danger">
-
-                        <i class="nav-icon fas fa-sign-out-alt"></i>
-
-                        <p>Logout</p>
-
-                    </a>
-
-                </li>
+                <a href="javascript:void(0);" onclick="konfirmasiLogout()" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>Logout</p>
+                </a>
 
             </ul>
 

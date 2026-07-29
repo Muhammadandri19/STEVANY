@@ -53,9 +53,42 @@
                     </div>
                 </div>
 
-                <!-- Berita -->
+
+                <!-- Oleh-Oleh -->
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3><?= $jumlah_oleh_oleh; ?></h3>
+                            <p>Oleh-Oleh</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <a href="<?= base_url('oleh_oleh'); ?>" class="small-box-footer">
+                            Selengkapnya <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pernak-Pernik -->
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h3><?= $jumlah_pernak_pernik; ?></h3>
+                            <p>Pernak-Pernik</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <a href="<?= base_url('pernak_pernik'); ?>" class="small-box-footer">
+                            Selengkapnya <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Berita -->
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-secondary">
                         <div class="inner">
                             <h3><?= $jumlah_berita; ?></h3>
                             <p>Berita Wisata</p>
@@ -71,7 +104,7 @@
 
                 <!-- Pengguna -->
                 <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
+                    <div class="small-box bg-dark">
                         <div class="inner">
                             <h3><?= $jumlah_pengguna; ?></h3>
                             <p>Pengguna</p>
@@ -122,19 +155,14 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <th>Hak Akses</th>
-                                        <th>:</th>
-                                        <td>
-                                            <?= isset($user->pengguna_level) ? $user->pengguna_level : '-'; ?>
-                                        </td>
-                                    </tr>
 
                                     <tr>
                                         <th>Status</th>
                                         <th>:</th>
                                         <td>
-                                            <span class="badge badge-success">Aktif</span>
+                                            <span class="badge badge-success">
+                                                Aktif
+                                            </span>
                                         </td>
                                     </tr>
 

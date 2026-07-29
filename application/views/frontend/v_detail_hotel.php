@@ -178,9 +178,14 @@
 
                         <ul class="list-ico">
 
-                            <li>
-                                <span class="fa fa-map-marker"></span>
-                                <?= $hotel->alamat; ?>
+                            <li style="display:table; width:100%;">
+                                <div style="display:table-cell; width:25px; vertical-align:top;">
+                                    <i class="fa fa-map-marker" style="color:#0078ff;"></i>
+                                </div>
+
+                                <div style="display:table-cell;">
+                                    <?= $hotel->alamat; ?>
+                                </div>
                             </li>
 
                             <li>
@@ -242,15 +247,18 @@
                         Harga Mulai
                     </h5>
 
-                    <h2 class="text-primary">
+                    <div class="sidebar-content">
 
-                        <?= $hotel->harga_mulai; ?>
+                        <h2 class="text-primary font-weight-bold mb-2">
+                            <?= $hotel->harga_mulai; ?>
+                        </h2>
 
-                    </h2>
+                        <p class="text-muted mb-0">
+                            <i class="fa fa-bed"></i>
+                            Harga mulai per malam
+                        </p>
 
-                    <small>
-                        per malam
-                    </small>
+                    </div>
 
                 </div>
 
@@ -259,9 +267,7 @@
                 <div class="widget-sidebar">
 
                     <h5 class="sidebar-title">
-
                         Hotel Lainnya
-
                     </h5>
 
                     <div class="sidebar-content">
@@ -272,7 +278,7 @@
 
                                 <li>
 
-                                    <a href="<?= base_url('hotel_front/detail/' . $r->hotel_id); ?>">
+                                    <a href="<?= base_url('hotel/detail/' . $r->hotel_id); ?>">
 
                                         <?= $r->nama_hotel; ?>
 
@@ -285,6 +291,21 @@
                         </ul>
 
                     </div>
+
+                </div>
+
+                <!-- TOMBOL KEMBALI -->
+
+                <div class="widget-sidebar text-center">
+
+                    <a href="<?= base_url(); ?>#hotel"
+                        class="btn btn-primary btn-lg btn-block">
+
+                        <i class="fa fa-arrow-left"></i>
+
+                        Kembali ke Hotel
+
+                    </a>
 
                 </div>
 

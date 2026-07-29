@@ -1,0 +1,63 @@
+```svg
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<!-- Lingkaran Logo -->
+<circle cx="250" cy="250" r="220" fill="#ffffff"/>
+
+<!-- Gunung -->
+<path d="M80 320 L190 150 L270 250 L330 180 L430 320 Z" fill="#1E88E5"/>
+<path d="M120 320 L220 200 L280 270 L340 210 L410 320 Z" fill="#43A047"/>
+
+<!-- Salju Gunung -->
+<path d="M170 180 L190 150 L215 205 L190 195 Z" fill="white"/>
+<path d="M310 205 L330 180 L350 215 L330 210 Z" fill="white"/>
+
+<!-- Matahari -->
+<circle cx="250" cy="120" r="45" fill="#FFC107"/>
+
+<!-- Pin Lokasi -->
+<path d="M250 160
+C210 160 180 195 180 240
+C180 300 250 370 250 370
+C250 370 320 300 320 240
+C320 195 290 160 250 160Z"
+fill="#E53935"/>
+
+<circle cx="250" cy="240" r="22" fill="white"/>
+
+<!-- Kamera -->
+<rect x="190" y="290" width="120" height="70" rx="15" fill="#263238"/>
+<circle cx="250" cy="325" r="22" fill="#90CAF9"/>
+<rect x="215" y="275" width="45" height="20" rx="5" fill="#263238"/>
+
+<!-- Daun -->
+<path d="M120 270
+C80 230 70 180 130 170
+C150 230 140 260 120 270Z"
+fill="#66BB6A"/>
+
+<path d="M380 270
+C420 230 430 180 370 170
+C350 230 360 260 380 270Z"
+fill="#66BB6A"/>
+
+<!-- Text -->
+<text x="250" y="420"
+text-anchor="middle"
+font-family="Arial, sans-serif"
+font-size="34"
+font-weight="bold"
+fill="#1565C0">
+STEVANY
+</text>
+
+<text x="250" y="455"
+text-anchor="middle"
+font-family="Arial, sans-serif"
+font-size="24"
+fill="#43A047">
+TRAVELING
+</text>
+
+</svg>
+```

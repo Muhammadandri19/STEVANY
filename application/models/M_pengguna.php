@@ -3,6 +3,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_pengguna extends CI_Model
 {
+
+    private $table = 'pengguna';
+
+
+    // ==========================
+    // AMBIL ADMIN
+    // ==========================
+
+    public function get_admin()
+    {
+        return $this->db
+            ->where('pengguna_level', 'admin')
+            ->where('pengguna_status', 'aktif')
+            ->get($this->table)
+            ->row();
+    }
+
+
+
     // ==========================
     // GET ALL
     // ==========================
@@ -11,9 +30,11 @@ class M_pengguna extends CI_Model
     {
         return $this->db
             ->order_by('pengguna_id', 'DESC')
-            ->get('pengguna')
+            ->get($this->table)
             ->result();
     }
+
+
 
     // ==========================
     // GET BY ID
@@ -23,71 +44,111 @@ class M_pengguna extends CI_Model
     {
         return $this->db
             ->where('pengguna_id', $id)
-            ->get('pengguna')
+            ->get($this->table)
             ->row();
     }
 
+
+
     // ==========================
-    // INSERT
+    // LOGIN ADMIN
     // ==========================
 
-    public function insert($data)
+    public function login($username, $password)
     {
-        return $this->db->insert('pengguna', $data);
+        return $this->db
+            ->where('pengguna_username', $username)
+            ->where('pengguna_password', md5($password))
+            ->where('pengguna_status', 'aktif')
+            ->get($this->table)
+            ->row();
     }
 
+
+
     // ==========================
-    // UPDATE
+    // UPDATE ADMIN
     // ==========================
 
     public function update($id, $data)
     {
-        $this->db->where('pengguna_id', $id);
-
-        return $this->db->update('pengguna', $data);
+        return $this->db
+            ->where('pengguna_id', $id)
+            ->update($this->table, $data);
     }
 
+
+
     // ==========================
-    // DELETE
+    // CEK USERNAME DUPLIKAT
     // ==========================
 
-    public function delete($id)
+    public function cek_username($username, $id = null)
     {
-        $this->db->where('pengguna_id', $id);
+        $this->db
+            ->where('pengguna_username', $username);
 
-        return $this->db->delete('pengguna');
+        if ($id != null) {
+
+            $this->db->where(
+                'pengguna_id !=',
+                $id
+            );
+        }
+
+        return $this->db
+            ->get($this->table)
+            ->num_rows();
     }
 
+
+
     // ==========================
-    // TOTAL PENGGUNA
+    // CEK EMAIL DUPLIKAT
+    // ==========================
+
+    public function cek_email($email, $id = null)
+    {
+        $this->db
+            ->where('pengguna_email', $email);
+
+
+        if ($id != null) {
+
+            $this->db->where(
+                'pengguna_id !=',
+                $id
+            );
+        }
+
+
+        return $this->db
+            ->get($this->table)
+            ->num_rows();
+    }
+
+
+
+    // ==========================
+    // JUMLAH ADMIN
     // ==========================
 
     public function count_data()
     {
-        return $this->db->count_all('pengguna');
+        return $this->db
+            ->count_all($this->table);
     }
 
+
+
     // ==========================
-    // CEK USERNAME
+    // HAPUS
     // ==========================
 
-    public function cek_username($username)
+    public function delete($id)
     {
         return $this->db
-            ->where('pengguna_username', $username)
-            ->get('pengguna')
-            ->num_rows();
-    }
-
-    // ==========================
-    // CEK EMAIL
-    // ==========================
-
-    public function cek_email($email)
-    {
-        return $this->db
-            ->where('pengguna_email', $email)
-            ->get('pengguna')
-            ->num_rows();
+            ->where('pengguna_id', $id)
+            ->delete($this->table);
     }
 }

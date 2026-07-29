@@ -241,15 +241,6 @@ a:hover {
   margin-bottom: 0;
 }
 
-.list-ico {
-  line-height: 2;
-}
-
-.list-ico span {
-  color: #0078ff;
-  margin-right: 10px;
-}
-
 /*------/ Ico Circle /------*/
 
 .ico-circle {
@@ -1899,7 +1890,40 @@ footer .credits a {
     padding:10px 20px !important;
 }
 
+/* ===========================
+   LIST INFORMASI DESTINASI
+=========================== */
 
+.list-ico{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-ico li{
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.list-ico li i,
+.list-ico li span.fa{
+    width: 18px;
+    min-width: 18px;
+    text-align: center;
+    margin-top: 4px;
+    color: #555;
+}
+
+.list-ico .info-content{
+    flex: 1;
+    color: #444;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: anywhere;
+}
 
 
 

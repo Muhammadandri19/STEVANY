@@ -1,3 +1,7 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
+
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -11,8 +15,7 @@
 
                 <div class="col-sm-6 text-right">
 
-                    <button type="button"
-                        class="btn btn-primary"
+                    <button class="btn btn-primary"
                         data-toggle="modal"
                         data-target="#modalTambah">
 
@@ -28,6 +31,7 @@
         </div>
     </section>
 
+
     <section class="content">
 
         <div class="container-fluid">
@@ -40,90 +44,133 @@
                     </h3>
                 </div>
 
+
                 <div class="card-body">
 
                     <table id="tabelDestinasi"
                         class="table table-bordered table-striped text-center">
 
+
                         <thead>
 
                             <tr>
-                                <th>No</th>
+
+                                <th width="5%">No</th>
                                 <th>Gambar</th>
                                 <th>Kategori</th>
                                 <th>Nama Destinasi</th>
-                                <th>Alamat</th>
                                 <th>Harga Tiket</th>
                                 <th>Jam Operasional</th>
-                                <th>Maps</th>
+                                <th>Lokasi</th>
                                 <th>Status</th>
-                                <th width="120" class="text-center">Aksi</th>
+                                <th width="15%">Aksi</th>
+
                             </tr>
 
                         </thead>
 
+
                         <tbody>
 
                             <?php $no = 1; ?>
-                            <?php foreach ($destinasi as $d) : ?>
+
+                            <?php foreach ($destinasi as $d): ?>
+
 
                                 <tr>
 
-                                    <td><?= $no++; ?></td>
+
+                                    <td>
+                                        <?= $no++; ?>
+                                    </td>
+
 
                                     <td>
 
-                                        <?php if ($d->destinasi_gambar) : ?>
+                                        <?php if (!empty($d->destinasi_gambar)): ?>
 
                                             <img src="<?= base_url('uploads/destinasi/' . $d->destinasi_gambar); ?>"
-                                                width="80"
+                                                width="90"
                                                 class="img-thumbnail">
 
-                                        <?php else : ?>
+                                        <?php else: ?>
 
-                                            <span class="badge badge-secondary">
-                                                Tidak Ada
+                                            <img src="<?= base_url('assets/no-image.png'); ?>"
+                                                width="90"
+                                                class="img-thumbnail">
+
+                                        <?php endif; ?>
+
+
+                                    </td>
+
+
+                                    <td>
+                                        <?= $d->kategori_nama; ?>
+                                    </td>
+
+
+                                    <td>
+                                        <strong>
+                                            <?= $d->destinasi_nama; ?>
+                                        </strong>
+                                    </td>
+
+
+                                    <td>
+
+                                        <?php if (!empty($d->harga_tiket)): ?>
+
+                                            <span class="badge badge-success">
+                                                <?= $d->harga_tiket; ?>
                                             </span>
+
+                                        <?php else: ?>
+
+                                            -
 
                                         <?php endif; ?>
 
                                     </td>
 
-                                    <td><?= $d->kategori_nama; ?></td>
 
-                                    <td><?= $d->destinasi_nama; ?></td>
+                                    <td>
+                                        <?= !empty($d->jam_operasional)
+                                            ? $d->jam_operasional
+                                            : '-'; ?>
+                                    </td>
 
-                                    <td><?= $d->destinasi_alamat; ?></td>
-
-                                    <td><?= $d->harga_tiket; ?></td>
-
-                                    <td><?= $d->jam_operasional; ?></td>
 
                                     <td>
 
-                                        <?php if ($d->maps) : ?>
+                                        <?php if (!empty($d->latitude) && !empty($d->longitude)): ?>
 
-                                            <a href="<?= $d->maps; ?>"
-                                                target="_blank"
+                                            <a target="_blank"
+                                                href="https://www.google.com/maps?q=<?= $d->latitude ?>,<?= $d->longitude ?>"
                                                 class="btn btn-info btn-sm">
 
                                                 <i class="fas fa-map-marker-alt"></i>
 
                                             </a>
 
+                                        <?php else: ?>
+
+                                            -
+
                                         <?php endif; ?>
 
                                     </td>
 
+
                                     <td>
 
-                                        <?php if ($d->status == 'aktif') : ?>
+                                        <?php if ($d->status == 'aktif'): ?>
 
                                             <span class="badge badge-success">
                                                 Aktif
                                             </span>
 
-                                        <?php else : ?>
+                                        <?php else: ?>
 
                                             <span class="badge badge-danger">
                                                 Nonaktif
@@ -133,16 +180,19 @@
 
                                     </td>
 
-                                    <td class="text-center align-middle" style="white-space: nowrap;">
 
-                                        <button type="button"
-                                            class="btn btn-warning btn-sm"
+                                    <td>
+
+
+                                        <button class="btn btn-warning btn-sm"
                                             data-toggle="modal"
-                                            data-target="#edit<?= $d->destinasi_id; ?>">
+                                            data-target="#edit<?= $d->destinasi_id ?>">
 
                                             <i class="fas fa-edit"></i>
 
                                         </button>
+
+
 
                                         <a href="<?= base_url('destinasi/hapus/' . $d->destinasi_id); ?>"
                                             class="btn btn-danger btn-sm tombol-hapus">
@@ -151,13 +201,18 @@
 
                                         </a>
 
+
                                     </td>
+
 
                                 </tr>
 
+
                             <?php endforeach; ?>
 
+
                         </tbody>
+
 
                     </table>
 
@@ -172,333 +227,740 @@
 </div>
 
 
+
+
+
 <!-- MODAL TAMBAH -->
 
-<div class="modal fade" id="modalTambah">
+<div class="modal fade"
+    id="modalTambah">
+
 
     <div class="modal-dialog modal-lg">
 
+
         <div class="modal-content">
+
 
             <form action="<?= base_url('destinasi/simpan'); ?>"
                 method="post"
                 enctype="multipart/form-data">
 
-                <div class="modal-header">
 
-                    <h4 class="modal-title">
+                <div class="modal-header bg-primary">
+
+                    <h4 class="modal-title text-white">
                         Tambah Destinasi
                     </h4>
 
+
                     <button type="button"
-                        class="close"
+                        class="close text-white"
                         data-dismiss="modal">
 
-                        <span>&times;</span>
+                        &times;
 
                     </button>
 
+
                 </div>
+
+
 
                 <div class="modal-body">
 
-                    <div class="form-group">
-                        <label>Kategori</label>
 
-                        <select name="kategori_id"
-                            class="form-control"
-                            required>
+                    <div class="row">
 
-                            <option value="">
-                                -- Pilih Kategori --
-                            </option>
 
-                            <?php foreach ($kategori as $k) : ?>
+                        <div class="col-md-6">
 
-                                <option value="<?= $k->kategori_id; ?>">
-                                    <?= $k->kategori_nama; ?>
-                                </option>
 
-                            <?php endforeach; ?>
+                            <div class="form-group">
 
-                        </select>
+                                <label>Kategori Wisata</label>
+
+                                <select name="kategori_id"
+                                    class="form-control"
+                                    required>
+
+
+                                    <option value="">
+                                        -- Pilih Kategori --
+                                    </option>
+
+
+                                    <?php foreach ($kategori as $k): ?>
+
+
+                                        <option value="<?= $k->kategori_id ?>">
+
+                                            <?= $k->kategori_nama ?>
+
+                                        </option>
+
+
+                                    <?php endforeach; ?>
+
+
+                                </select>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="col-md-6">
+
+
+                            <div class="form-group">
+
+                                <label>Status</label>
+
+                                <select name="status"
+                                    class="form-control">
+
+
+                                    <option value="aktif">
+                                        Aktif
+                                    </option>
+
+
+                                    <option value="nonaktif">
+                                        Nonaktif
+                                    </option>
+
+
+                                </select>
+
+
+                            </div>
+
+
+                        </div>
+
+
                     </div>
 
+
+
                     <div class="form-group">
+
                         <label>Nama Destinasi</label>
+
                         <input type="text"
                             name="destinasi_nama"
                             class="form-control"
                             required>
+
                     </div>
 
-                    <div class="form-group">
-                        <label>Deskripsi</label>
-                        <textarea name="destinasi_deskripsi"
-                            class="form-control"
-                            rows="4"></textarea>
-                    </div>
+
 
                     <div class="form-group">
+
                         <label>Alamat</label>
+
                         <textarea name="destinasi_alamat"
                             class="form-control"
                             rows="3"></textarea>
+
                     </div>
 
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label>Latitude</label>
+
+                                <input type="text"
+                                    name="latitude"
+                                    class="form-control"
+                                    placeholder="-7.49430000">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label>Longitude</label>
+
+                                <input type="text"
+                                    name="longitude"
+                                    class="form-control"
+                                    placeholder="110.38170000">
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
                     <div class="form-group">
+
                         <label>Harga Tiket</label>
+
                         <input type="text"
                             name="harga_tiket"
-                            class="form-control">
+                            class="form-control"
+                            placeholder="Contoh : Rp15.000 / Orang">
+
                     </div>
 
+
+
                     <div class="form-group">
+
                         <label>Jam Operasional</label>
+
                         <input type="text"
                             name="jam_operasional"
-                            class="form-control">
+                            class="form-control"
+                            placeholder="08.00 - 17.00">
+
                     </div>
 
                     <div class="form-group">
+
+                        <label>Fasilitas Destinasi</label>
+
+                        <textarea name="fasilitas"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Area Parkir, Toilet, Mushola, Gazebo, Spot Foto"></textarea>
+
+                        <small class="text-muted">
+                            Pisahkan fasilitas dengan tanda koma (,)
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
                         <label>Google Maps</label>
+
                         <textarea name="maps"
                             class="form-control"
-                            rows="3"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Status</label>
-
-                        <select name="status"
-                            class="form-control">
-
-                            <option value="aktif">
-                                Aktif
-                            </option>
-
-                            <option value="nonaktif">
-                                Nonaktif
-                            </option>
-
-                        </select>
+                            rows="3"
+                            placeholder="Tempel link Google Maps atau iframe"></textarea>
 
                     </div>
 
+
+
                     <div class="form-group">
 
-                        <label>Gambar</label>
+                        <label>Deskripsi Destinasi</label>
+
+                        <textarea name="destinasi_deskripsi"
+                            class="form-control"
+                            rows="6"></textarea>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>Gambar Destinasi</label>
 
                         <input type="file"
                             name="destinasi_gambar"
                             class="form-control">
 
+
+                        <small class="text-muted">
+
+                            Format:
+                            JPG, JPEG, PNG, WEBP
+
+                        </small>
+
                     </div>
+
+
 
                 </div>
 
+
+
                 <div class="modal-footer">
+
+
+                    <button type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal">
+
+                        Batal
+
+                    </button>
+
+
 
                     <button type="submit"
                         class="btn btn-primary">
 
-                        Simpan
+                        <i class="fas fa-save"></i>
+
+                        Simpan Destinasi
 
                     </button>
 
+
                 </div>
+
 
             </form>
 
+
         </div>
+
 
     </div>
 
+
 </div>
 
-<?php foreach ($destinasi as $d) : ?>
 
-    <div class="modal fade" id="edit<?= $d->destinasi_id; ?>">
+
+
+
+<!-- ========================= -->
+<!-- MODAL EDIT -->
+<!-- ========================= -->
+
+
+<?php foreach ($destinasi as $d): ?>
+
+
+    <div class="modal fade"
+        id="edit<?= $d->destinasi_id ?>">
+
+
         <div class="modal-dialog modal-lg">
+
+
             <div class="modal-content">
+
 
                 <form action="<?= base_url('destinasi/update'); ?>"
                     method="post"
                     enctype="multipart/form-data">
 
+
+
                     <input type="hidden"
                         name="destinasi_id"
-                        value="<?= $d->destinasi_id; ?>">
+                        value="<?= $d->destinasi_id ?>">
 
-                    <div class="modal-header">
+
+
+                    <div class="modal-header bg-warning">
+
+
                         <h4 class="modal-title">
+
                             Edit Destinasi
+
                         </h4>
+
 
                         <button type="button"
                             class="close"
                             data-dismiss="modal">
 
-                            <span>&times;</span>
+                            &times;
 
                         </button>
+
+
                     </div>
+
+
+
+
 
                     <div class="modal-body">
 
-                        <div class="form-group">
-                            <label>Kategori</label>
 
-                            <select name="kategori_id"
-                                class="form-control"
-                                required>
 
-                                <?php foreach ($kategori as $k) : ?>
+                        <div class="row">
 
-                                    <option value="<?= $k->kategori_id; ?>"
-                                        <?= ($d->kategori_id == $k->kategori_id) ? 'selected' : ''; ?>>
 
-                                        <?= $k->kategori_nama; ?>
+                            <div class="col-md-6">
 
-                                    </option>
 
-                                <?php endforeach; ?>
+                                <div class="form-group">
 
-                            </select>
+                                    <label>Kategori Wisata</label>
+
+
+                                    <select name="kategori_id"
+                                        class="form-control"
+                                        required>
+
+
+
+                                        <?php foreach ($kategori as $k): ?>
+
+
+                                            <option value="<?= $k->kategori_id ?>"
+                                                <?= ($d->kategori_id == $k->kategori_id)
+                                                    ? 'selected' : '' ?>>
+
+                                                <?= $k->kategori_nama ?>
+
+                                            </option>
+
+
+                                        <?php endforeach; ?>
+
+
+                                    </select>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                            <div class="col-md-6">
+
+
+                                <div class="form-group">
+
+                                    <label>Status</label>
+
+
+                                    <select name="status"
+                                        class="form-control">
+
+
+
+                                        <option value="aktif"
+                                            <?= $d->status == 'aktif'
+                                                ? 'selected' : '' ?>>
+
+                                            Aktif
+
+                                        </option>
+
+
+
+
+                                        <option value="nonaktif"
+                                            <?= $d->status == 'nonaktif'
+                                                ? 'selected' : '' ?>>
+
+                                            Nonaktif
+
+                                        </option>
+
+
+
+                                    </select>
+
+
+                                </div>
+
+
+                            </div>
+
 
                         </div>
 
+
+
+
+
                         <div class="form-group">
+
                             <label>Nama Destinasi</label>
+
 
                             <input type="text"
                                 name="destinasi_nama"
                                 class="form-control"
-                                value="<?= $d->destinasi_nama; ?>"
+                                value="<?= $d->destinasi_nama ?>"
                                 required>
 
-                        </div>
-
-                        <div class="form-group">
-                            <label>Deskripsi</label>
-
-                            <textarea name="destinasi_deskripsi"
-                                class="form-control"
-                                rows="4"><?= $d->destinasi_deskripsi; ?></textarea>
 
                         </div>
 
+
+
+
+
                         <div class="form-group">
-                            <label>Alamat</label>
+
+                            <label>Alamat Destinasi</label>
+
 
                             <textarea name="destinasi_alamat"
                                 class="form-control"
-                                rows="3"><?= $d->destinasi_alamat; ?></textarea>
+                                rows="3"><?= $d->destinasi_alamat ?></textarea>
+
 
                         </div>
 
+
+
+
+
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+
+
+                                <div class="form-group">
+
+
+                                    <label>Latitude</label>
+
+
+                                    <input type="text"
+                                        name="latitude"
+                                        class="form-control"
+                                        value="<?= $d->latitude ?>"
+                                        placeholder="-7.49430000">
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                            <div class="col-md-6">
+
+
+                                <div class="form-group">
+
+
+                                    <label>Longitude</label>
+
+
+                                    <input type="text"
+                                        name="longitude"
+                                        class="form-control"
+                                        value="<?= $d->longitude ?>"
+                                        placeholder="110.38170000">
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
                         <div class="form-group">
+
+
                             <label>Harga Tiket</label>
+
 
                             <input type="text"
                                 name="harga_tiket"
                                 class="form-control"
-                                value="<?= $d->harga_tiket; ?>">
+                                value="<?= $d->harga_tiket ?>">
+
 
                         </div>
 
+
+
+
+
                         <div class="form-group">
+
+
                             <label>Jam Operasional</label>
+
 
                             <input type="text"
                                 name="jam_operasional"
                                 class="form-control"
-                                value="<?= $d->jam_operasional; ?>">
+                                value="<?= $d->jam_operasional ?>">
+
 
                         </div>
 
+
+
+
+
                         <div class="form-group">
+
+
+                            <label>Fasilitas Destinasi</label>
+
+
+                            <textarea name="fasilitas"
+                                class="form-control"
+                                rows="4"><?= $d->fasilitas ?></textarea>
+
+
+                            <small class="text-muted">
+
+                                Pisahkan fasilitas dengan tanda koma (,)
+
+                            </small>
+
+
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+
+
                             <label>Google Maps</label>
+
 
                             <textarea name="maps"
                                 class="form-control"
-                                rows="3"><?= $d->maps; ?></textarea>
+                                rows="3"><?= $d->maps ?></textarea>
+
 
                         </div>
 
+
+
+
+
                         <div class="form-group">
-                            <label>Status</label>
 
-                            <select name="status"
-                                class="form-control">
 
-                                <option value="aktif"
-                                    <?= ($d->status == 'aktif') ? 'selected' : ''; ?>>
-                                    Aktif
-                                </option>
+                            <label>Deskripsi Destinasi</label>
 
-                                <option value="nonaktif"
-                                    <?= ($d->status == 'nonaktif') ? 'selected' : ''; ?>>
-                                    Nonaktif
-                                </option>
 
-                            </select>
+                            <textarea name="destinasi_deskripsi"
+                                class="form-control"
+                                rows="6"><?= $d->destinasi_deskripsi ?></textarea>
+
 
                         </div>
 
+
+
+
+
                         <div class="form-group">
 
-                            <label>Gambar Saat Ini</label>
 
-                            <br>
+                            <label>Gambar Destinasi</label>
 
-                            <?php if (!empty($d->destinasi_gambar)) : ?>
 
-                                <img src="<?= base_url('uploads/destinasi/' . $d->destinasi_gambar); ?>"
-                                    width="150"
-                                    class="img-thumbnail mb-2">
+                            <?php if (!empty($d->destinasi_gambar)): ?>
 
-                            <?php else : ?>
 
-                                <p class="text-muted">
-                                    Belum ada gambar
-                                </p>
+                                <div class="mb-2">
+
+                                    <img src="<?= base_url('uploads/destinasi/' . $d->destinasi_gambar); ?>"
+                                        width="180"
+                                        class="img-thumbnail">
+
+                                </div>
+
 
                             <?php endif; ?>
 
-                        </div>
 
-                        <div class="form-group">
-
-                            <label>Ganti Gambar</label>
 
                             <input type="file"
                                 name="destinasi_gambar"
                                 class="form-control">
 
+
+
                             <small class="text-muted">
-                                Kosongkan jika tidak ingin mengganti gambar
+
+                                Kosongkan jika tidak mengganti gambar.
+
                             </small>
+
 
                         </div>
 
+
+
                     </div>
 
+
+
+
+
                     <div class="modal-footer">
+
+
+                        <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">
+
+                            Batal
+
+                        </button>
+
+
+
 
                         <button type="submit"
                             class="btn btn-success">
 
-                            Update
+                            <i class="fas fa-save"></i>
+
+                            Update Destinasi
 
                         </button>
 
+
                     </div>
+
+
 
                 </form>
 
+
             </div>
+
+
         </div>
+
+
     </div>
+
+
 
 <?php endforeach; ?>

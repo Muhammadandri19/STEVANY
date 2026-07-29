@@ -53,3 +53,6 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['destinasi/(:num)'] = 'home/detail_destinasi/$1';
+$route['galeri']             = 'galeri/index';
+$route['galeri/semua']       = 'galeri/semua';
+$route['galeri/detail/(:num)'] = 'galeri/detail/$1';

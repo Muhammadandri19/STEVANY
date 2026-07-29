@@ -8,6 +8,7 @@ class Hotel extends CI_Controller
         parent::__construct();
 
         $this->load->model('M_hotel');
+        $this->load->model('M_destinasi');
         $this->load->helper(array('url', 'text'));
     }
 
@@ -17,13 +18,13 @@ class Hotel extends CI_Controller
 
     public function index()
     {
-        // Jika belum login arahkan ke login
         if (!$this->session->userdata('id')) {
             redirect('login');
         }
 
         $data['title'] = 'Hotel / Penginapan';
         $data['hotel'] = $this->M_hotel->get_all();
+        $data['destinasi'] = $this->M_destinasi->get_all();
 
         $this->load->view('backend/template/v_header', $data);
         $this->load->view('backend/template/v_sidebar', $data);
@@ -41,9 +42,16 @@ class Hotel extends CI_Controller
 
         if (!empty($_FILES['gambar']['name'])) {
 
-            $config['upload_path']   = './uploads/hotel/';
-            $config['allowed_types'] = 'jpg|jpeg|png|webp';
-            $config['encrypt_name']  = TRUE;
+            if (!is_dir('./uploads/hotel/')) {
+                mkdir('./uploads/hotel/', 0777, TRUE);
+            }
+
+            $config = [
+                'upload_path'   => './uploads/hotel/',
+                'allowed_types' => 'jpg|jpeg|png|webp',
+                'encrypt_name'  => TRUE,
+                'max_size'      => 2048
+            ];
 
             $this->load->library('upload');
             $this->upload->initialize($config);
@@ -54,19 +62,22 @@ class Hotel extends CI_Controller
         }
 
         $data = [
-            'nama_hotel'   => $this->input->post('nama_hotel', TRUE),
-            'alamat'       => $this->input->post('alamat', TRUE),
-            'telepon'      => $this->input->post('telepon', TRUE),
-            'email'        => $this->input->post('email', TRUE),
-            'website'      => $this->input->post('website', TRUE),
-            'maps'         => $this->input->post('maps'),
-            'deskripsi'    => $this->input->post('deskripsi'),
-            'harga_mulai'  => $this->input->post('harga_mulai', TRUE),
-            'rating'       => $this->input->post('rating', TRUE),
-            'fasilitas'    => $this->input->post('fasilitas'),
-            'jam_checkin'  => $this->input->post('jam_checkin', TRUE),
+            'destinasi_id' => $this->input->post('destinasi_id', TRUE),
+            'nama_hotel' => $this->input->post('nama_hotel', TRUE),
+            'alamat' => $this->input->post('alamat', TRUE),
+            'telepon' => $this->input->post('telepon', TRUE),
+            'email' => $this->input->post('email', TRUE),
+            'website' => $this->input->post('website', TRUE),
+            'maps' => $this->input->post('maps'),
+            'latitude' => $this->input->post('latitude', TRUE),
+            'longitude' => $this->input->post('longitude', TRUE),
+            'deskripsi' => $this->input->post('deskripsi'),
+            'harga_mulai' => $this->input->post('harga_mulai', TRUE),
+            'rating' => $this->input->post('rating', TRUE),
+            'fasilitas' => $this->input->post('fasilitas'),
+            'jam_checkin' => $this->input->post('jam_checkin', TRUE),
             'jam_checkout' => $this->input->post('jam_checkout', TRUE),
-            'gambar'       => $gambar
+            'gambar' => $gambar
         ];
 
         $this->M_hotel->insert($data);
@@ -88,25 +99,31 @@ class Hotel extends CI_Controller
         $id = $this->input->post('hotel_id');
 
         $data = [
-            'nama_hotel'   => $this->input->post('nama_hotel', TRUE),
-            'alamat'       => $this->input->post('alamat', TRUE),
-            'telepon'      => $this->input->post('telepon', TRUE),
-            'email'        => $this->input->post('email', TRUE),
-            'website'      => $this->input->post('website', TRUE),
-            'maps'         => $this->input->post('maps'),
-            'deskripsi'    => $this->input->post('deskripsi'),
-            'harga_mulai'  => $this->input->post('harga_mulai', TRUE),
-            'rating'       => $this->input->post('rating', TRUE),
-            'fasilitas'    => $this->input->post('fasilitas'),
-            'jam_checkin'  => $this->input->post('jam_checkin', TRUE),
+            'destinasi_id' => $this->input->post('destinasi_id', TRUE),
+            'nama_hotel' => $this->input->post('nama_hotel', TRUE),
+            'alamat' => $this->input->post('alamat', TRUE),
+            'telepon' => $this->input->post('telepon', TRUE),
+            'email' => $this->input->post('email', TRUE),
+            'website' => $this->input->post('website', TRUE),
+            'maps' => $this->input->post('maps'),
+            'latitude' => $this->input->post('latitude', TRUE),
+            'longitude' => $this->input->post('longitude', TRUE),
+            'deskripsi' => $this->input->post('deskripsi'),
+            'harga_mulai' => $this->input->post('harga_mulai', TRUE),
+            'rating' => $this->input->post('rating', TRUE),
+            'fasilitas' => $this->input->post('fasilitas'),
+            'jam_checkin' => $this->input->post('jam_checkin', TRUE),
             'jam_checkout' => $this->input->post('jam_checkout', TRUE)
         ];
 
         if (!empty($_FILES['gambar']['name'])) {
 
-            $config['upload_path']   = './uploads/hotel/';
-            $config['allowed_types'] = 'jpg|jpeg|png|webp';
-            $config['encrypt_name']  = TRUE;
+            $config = [
+                'upload_path' => './uploads/hotel/',
+                'allowed_types' => 'jpg|jpeg|png|webp',
+                'encrypt_name' => TRUE,
+                'max_size' => 2048
+            ];
 
             $this->load->library('upload');
             $this->upload->initialize($config);
@@ -163,13 +180,9 @@ class Hotel extends CI_Controller
         redirect('hotel');
     }
 
-    /* =====================================
-     * FRONTEND DETAIL HOTEL
-     * ===================================== */
-
     public function detail($id)
     {
-        $data['hotel'] = $this->M_hotel->get_by_id($id);
+        $data['hotel'] = $this->M_hotel->get_detail($id);
 
         if (!$data['hotel']) {
             show_404();
@@ -177,10 +190,11 @@ class Hotel extends CI_Controller
 
         $data['related'] = $this->db
             ->where('hotel_id !=', $id)
-            ->order_by('rand()')
+            ->order_by('hotel_id', 'DESC')
             ->limit(5)
             ->get('hotel')
             ->result();
+
         $data['title'] = $data['hotel']->nama_hotel;
 
         $this->load->view('frontend/template/v_header', $data);
