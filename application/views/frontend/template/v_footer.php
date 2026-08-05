@@ -73,6 +73,8 @@
 
 <script src="<?= base_url('assets_frontend/js/main.js'); ?>"></script>
 
+<script src="<?= base_url('assets_frontend/js/detail_destinasi.js'); ?>"></script>
+
 </body>
 
 </html>

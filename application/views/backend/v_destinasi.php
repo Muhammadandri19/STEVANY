@@ -436,22 +436,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                     </div>
 
-                    <div class="form-group">
-
-                        <label>Fasilitas Destinasi</label>
-
-                        <textarea name="fasilitas"
-                            class="form-control"
-                            rows="4"
-                            placeholder="Area Parkir, Toilet, Mushola, Gazebo, Spot Foto"></textarea>
-
-                        <small class="text-muted">
-                            Pisahkan fasilitas dengan tanda koma (,)
-                        </small>
-
-                    </div>
-
-
 
                     <div class="form-group">
 
@@ -815,29 +799,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                         </div>
 
-
-
-
-
-                        <div class="form-group">
-
-
-                            <label>Fasilitas Destinasi</label>
-
-
-                            <textarea name="fasilitas"
-                                class="form-control"
-                                rows="4"><?= $d->fasilitas ?></textarea>
-
-
-                            <small class="text-muted">
-
-                                Pisahkan fasilitas dengan tanda koma (,)
-
-                            </small>
-
-
-                        </div>
 
 
 

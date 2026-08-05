@@ -89,10 +89,6 @@ class Destinasi extends CI_Controller
             $this->input->post('harga_tiket'),
 
 
-            'fasilitas' =>
-            trim($this->input->post('fasilitas')),
-
-
             'jam_operasional' =>
             $this->input->post('jam_operasional'),
 
@@ -158,10 +154,6 @@ class Destinasi extends CI_Controller
 
             'harga_tiket' =>
             $this->input->post('harga_tiket'),
-
-
-            'fasilitas' =>
-            trim($this->input->post('fasilitas')),
 
 
             'jam_operasional' =>

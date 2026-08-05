@@ -3,7 +3,7 @@
     <div class="container">
 
         <a class="navbar-brand js-scroll" href="<?= base_url(); ?>#home">
-            STEVANY TRAVELING
+            DOLAN MAGELANG
         </a>
 
         <button class="navbar-toggler collapsed"

@@ -1,25 +1,24 @@
-<!-- =========================
+<!-- =========================================================
 HERO DESTINASI
-========================= -->
+========================================================= -->
 
-<section class="intro intro-single route bg-image"
-    style="background-image:url('<?= !empty($destinasi->destinasi_gambar) ? base_url('uploads/destinasi/' . $destinasi->destinasi_gambar) : base_url('assets_frontend/img/no-image.jpg'); ?>')">
+<section class="hero-detail"
+    style="background-image:url('<?= !empty($destinasi->destinasi_gambar)
+                                        ? base_url('uploads/destinasi/' . $destinasi->destinasi_gambar)
+                                        : base_url('assets_frontend/img/no-image.jpg'); ?>');">
 
-    <div class="overlay-mf"></div>
+    <div class="container">
 
-    <div class="intro-content display-table">
-        <div class="table-cell">
-            <div class="container">
+        <div class="hero-content">
 
-                <h2 class="intro-title mb-4 text-white">
-                    <?= $destinasi->destinasi_nama; ?>
-                </h2>
+            <nav aria-label="breadcrumb">
 
-                <ol class="breadcrumb d-flex justify-content-center">
+                <ol class="breadcrumb breadcrumb-custom">
 
                     <li class="breadcrumb-item">
                         <a href="<?= base_url(); ?>">
-                            Home
+                            <i class="fa fa-home"></i>
+                            Beranda
                         </a>
                     </li>
 
@@ -35,872 +34,1301 @@ HERO DESTINASI
 
                 </ol>
 
+            </nav>
+
+            <div class="hero-category">
+
+                <i class="fa fa-map-marker"></i>
+
+                <?= !empty($destinasi->kategori_nama)
+                    ? $destinasi->kategori_nama
+                    : 'Destinasi Wisata'; ?>
+
             </div>
-        </div>
-    </div>
 
-</section>
+            <h1 class="hero-title">
 
+                <?= $destinasi->destinasi_nama; ?>
 
+            </h1>
 
-<!-- =========================
-CONTENT DETAIL
-========================= -->
+            <p class="hero-desc">
 
-<section class="sect-pt4">
+                <?= word_limiter(strip_tags($destinasi->destinasi_deskripsi), 35); ?>
 
-    <div class="container">
+            </p>
 
-        <div class="row">
+            <div class="hero-action">
 
+                <a href="#tentang" class="btn btn-primary btn-hero">
 
-            <!-- CONTENT UTAMA -->
+                    <i class="fa fa-info-circle"></i>
 
-            <div class="col-lg-8">
+                    Jelajahi Destinasi
 
-
-
-                <!-- FOTO + DESKRIPSI -->
-
-                <div class="box-shadow-full">
-
-
-                    <img src="<?= !empty($destinasi->destinasi_gambar)
-                                    ? base_url('uploads/destinasi/' . $destinasi->destinasi_gambar)
-                                    : base_url('assets_frontend/img/no-image.jpg'); ?>"
-                        class="img-fluid rounded mb-4 w-100"
-                        alt="<?= $destinasi->destinasi_nama; ?>">
-
-
-
-                    <h3 class="title-left mb-4">
-                        Tentang <?= $destinasi->destinasi_nama; ?>
-                    </h3>
-
-
-
-                    <p>
-                        <?= $destinasi->destinasi_deskripsi; ?>
-                    </p>
-
-
-                </div>
-
-
-
-
-
-                <!-- INFORMASI DESTINASI -->
-
-                <div class="box-shadow-full mt-4">
-
-
-                    <h3 class="title-left mb-4">
-                        Informasi Destinasi
-                    </h3>
-
-
-
-                    <div class="row">
-
-
-
-                        <div class="col-md-6 mb-3">
-
-                            <div class="card p-3 h-100">
-
-
-                                <h6>
-                                    <i class="fa fa-map-marker text-danger"></i>
-                                    Alamat
-                                </h6>
-
-
-                                <hr>
-
-
-                                <p>
-                                    <?= !empty($destinasi->destinasi_alamat)
-                                        ? $destinasi->destinasi_alamat
-                                        : '-'; ?>
-                                </p>
-
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-                        <div class="col-md-3 mb-3">
-
-                            <div class="card p-3 text-center h-100">
-
-
-                                <h6>
-                                    <i class="fa fa-ticket text-success"></i>
-                                    Tiket
-                                </h6>
-
-
-                                <hr>
-
-
-                                <strong>
-                                    <?= !empty($destinasi->harga_tiket)
-                                        ? $destinasi->harga_tiket
-                                        : 'Gratis'; ?>
-                                </strong>
-
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-                        <div class="col-md-3 mb-3">
-
-                            <div class="card p-3 text-center h-100">
-
-
-                                <h6>
-                                    <i class="fa fa-clock-o text-primary"></i>
-                                    Jam
-                                </h6>
-
-
-                                <hr>
-
-
-                                <strong>
-                                    <?= !empty($destinasi->jam_operasional)
-                                        ? $destinasi->jam_operasional
-                                        : '-'; ?>
-                                </strong>
-
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-                <!-- =========================
-FASILITAS DESTINASI
-========================= -->
-
-                <?php if (!empty($destinasi->fasilitas)): ?>
-                    <div class="box-shadow-full mt-4">
-                        <h3 class="title-left mb-4">Fasilitas Destinasi</h3>
-                        <div class="row">
-                            <?php
-                            $fasilitas = explode(',', $destinasi->fasilitas);
-                            foreach ($fasilitas as $f):
-                            ?>
-                                <div class="col-md-6 mb-3">
-                                    <div class="card p-3 h-100">
-                                        <i class="fa fa-check text-success mr-2"></i>
-                                        <?= trim($f); ?>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-
-                <!-- =========================
-GOOGLE MAPS DESTINASI
-========================= -->
+                </a>
 
                 <?php if (!empty($destinasi->maps)): ?>
 
                     <?php
-                    $link_maps = $destinasi->maps;
-                    if (strpos($destinasi->maps, '<iframe') !== false) {
-                        preg_match('/src="([^"]+)"/', $destinasi->maps, $match);
-                        $link_maps = isset($match[1]) ? $match[1] : '#';
+                    $maps = $destinasi->maps;
+
+                    if (strpos($maps, '<iframe') !== false) {
+
+                        preg_match('/src="([^"]+)"/', $maps, $match);
+
+                        $maps = isset($match[1]) ? $match[1] : '#';
                     }
                     ?>
 
-                    <div class="box-shadow-full mt-4">
-                        <h3 class="title-left mb-4">Lokasi Destinasi</h3>
-                        <p>Klik tombol berikut untuk melihat lokasi <?= $destinasi->destinasi_nama; ?> melalui Google Maps.</p>
+                    <a href="<?= $maps; ?>"
+                        target="_blank"
+                        class="btn btn-outline-light btn-hero">
 
-                        <a href="<?= $link_maps; ?>" target="_blank" class="btn btn-success">
-                            <i class="fa fa-map-marker"></i> Buka Google Maps
-                        </a>
+                        <i class="fa fa-map-marker"></i>
 
-                    </div>
+                        Google Maps
 
-                <?php endif; ?>
-
-
-                <!-- =========================
-HOTEL DESTINASI
-========================= -->
-
-                <?php if (!empty($hotel)): ?>
-
-                    <div class="box-shadow-full mt-4">
-
-                        <h3 class="title-left mb-4">
-                            Hotel / Penginapan Sekitar Destinasi
-                        </h3>
-
-                        <?php foreach ($hotel as $h): ?>
-
-                            <div class="card shadow-sm mb-3">
-
-                                <div class="row no-gutters align-items-center">
-
-                                    <div class="col-md-4">
-                                        <img src="<?= !empty($h->gambar)
-                                                        ? base_url('uploads/hotel/' . $h->gambar)
-                                                        : base_url('assets_frontend/img/no-image.jpg'); ?>"
-                                            class="img-fluid rounded-left"
-                                            style="height:180px;width:100%;object-fit:cover;">
-                                    </div>
-
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-
-                                            <h5><?= $h->nama_hotel; ?></h5>
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-star text-warning"></i>
-                                                <?= !empty($h->rating) ? $h->rating : '-'; ?>
-                                            </p>
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-money text-success"></i>
-                                                <?= !empty($h->harga_mulai) ? $h->harga_mulai : '-'; ?>
-                                            </p>
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-map-marker text-danger"></i>
-                                                <?= word_limiter($h->alamat, 10); ?>
-                                            </p>
-
-                                            <a href="<?= base_url('hotel/detail/' . $h->hotel_id); ?>" class="btn btn-primary btn-sm">
-                                                <i class="fa fa-eye"></i> Lihat Detail
-                                            </a>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        <?php endforeach; ?>
-
-                    </div>
-
-                <?php endif; ?>
-
-
-
-                <!-- =========================
-OLEH-OLEH DESTINASI
-========================= -->
-
-                <?php if (!empty($oleh_oleh)): ?>
-
-                    <div class="box-shadow-full mt-4">
-
-                        <h3 class="title-left mb-4">
-                            Oleh-Oleh Khas Sekitar Destinasi
-                        </h3>
-
-                        <?php foreach ($oleh_oleh as $o): ?>
-
-                            <div class="card shadow-sm mb-3">
-
-                                <div class="row no-gutters align-items-center">
-
-                                    <div class="col-md-4">
-
-                                        <img src="<?= !empty($o->foto)
-                                                        ? base_url('uploads/oleh_oleh/' . $o->foto)
-                                                        : base_url('assets_frontend/img/no-image.jpg'); ?>"
-                                            class="img-fluid rounded-left"
-                                            style="height:180px;width:100%;object-fit:cover;">
-
-                                    </div>
-
-
-                                    <div class="col-md-8">
-
-                                        <div class="card-body">
-
-                                            <h5>
-                                                <?= $o->nama_produk; ?>
-                                            </h5>
-
-
-                                            <?php if (!empty($o->nama_toko)): ?>
-
-                                                <p class="mb-2">
-                                                    <i class="fa fa-shopping-bag text-primary"></i>
-                                                    <?= $o->nama_toko; ?>
-                                                </p>
-
-                                            <?php endif; ?>
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-money text-success"></i>
-                                                <?= !empty($o->harga) ? $o->harga : '-'; ?>
-                                            </p>
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-map-marker text-danger"></i>
-                                                <?= word_limiter($o->alamat, 10); ?>
-                                            </p>
-
-
-
-                                            <?php if (!empty($o->maps)): ?>
-
-                                                <a href="<?= $o->maps; ?>"
-                                                    target="_blank"
-                                                    class="btn btn-success btn-sm">
-
-                                                    <i class="fa fa-map-marker"></i>
-                                                    Lokasi
-
-                                                </a>
-
-                                            <?php endif; ?>
-
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        <?php endforeach; ?>
-
-                    </div>
-
-                <?php endif; ?>
-
-
-
-
-
-                <!-- =========================
-PERNAK-PERNIK DESTINASI
-========================= -->
-
-                <?php if (!empty($pernak_pernik)): ?>
-
-                    <div class="box-shadow-full mt-4">
-
-                        <h3 class="title-left mb-4">
-                            Pernak-Pernik & Souvenir
-                        </h3>
-
-
-                        <?php foreach ($pernak_pernik as $p): ?>
-
-
-                            <div class="card shadow-sm mb-3">
-
-
-                                <div class="row no-gutters align-items-center">
-
-
-                                    <div class="col-md-4">
-
-                                        <img src="<?= !empty($p->foto)
-                                                        ? base_url('uploads/pernak_pernik/' . $p->foto)
-                                                        : base_url('assets_frontend/img/no-image.jpg'); ?>"
-                                            class="img-fluid rounded-left"
-                                            style="height:180px;width:100%;object-fit:cover;">
-
-                                    </div>
-
-
-
-                                    <div class="col-md-8">
-
-                                        <div class="card-body">
-
-
-                                            <h5>
-                                                <?= $p->nama_produk; ?>
-                                            </h5>
-
-
-
-                                            <?php if (!empty($p->nama_toko)): ?>
-
-                                                <p class="mb-2">
-                                                    <i class="fa fa-shopping-bag text-primary"></i>
-                                                    <?= $p->nama_toko; ?>
-                                                </p>
-
-                                            <?php endif; ?>
-
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-money text-success"></i>
-                                                <?= !empty($p->harga) ? $p->harga : '-'; ?>
-                                            </p>
-
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-map-marker text-danger"></i>
-                                                <?= word_limiter($p->alamat, 10); ?>
-                                            </p>
-
-
-
-
-                                            <?php if (!empty($p->maps)): ?>
-
-                                                <a href="<?= $p->maps; ?>"
-                                                    target="_blank"
-                                                    class="btn btn-success btn-sm">
-
-                                                    <i class="fa fa-map-marker"></i>
-                                                    Lokasi
-
-                                                </a>
-
-                                            <?php endif; ?>
-
-
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-
-                        <?php endforeach; ?>
-
-
-                    </div>
-
-
-                <?php endif; ?>
-
-                <!-- =========================
-REKOMENDASI HOTEL TERDEKAT
-========================= -->
-
-                <?php if (!empty($hotel_terdekat)): ?>
-
-                    <div class="box-shadow-full mt-4">
-
-                        <h3 class="title-left mb-4">
-                            Rekomendasi Hotel Lainnya
-                        </h3>
-
-                        <?php foreach ($hotel_terdekat as $ht): ?>
-
-                            <div class="card shadow-sm mb-3">
-
-                                <div class="row no-gutters align-items-center">
-
-                                    <div class="col-md-4">
-
-                                        <img src="<?= !empty($ht->gambar)
-                                                        ? base_url('uploads/hotel/' . $ht->gambar)
-                                                        : base_url('assets_frontend/img/no-image.jpg'); ?>"
-                                            class="img-fluid rounded-left"
-                                            style="height:180px;width:100%;object-fit:cover;">
-
-                                    </div>
-
-
-                                    <div class="col-md-8">
-
-                                        <div class="card-body">
-
-                                            <h5>
-                                                <?= $ht->nama_hotel; ?>
-                                            </h5>
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-star text-warning"></i>
-                                                <?= !empty($ht->rating) ? $ht->rating : '-'; ?>
-                                            </p>
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-road text-info"></i>
-                                                <?= isset($ht->jarak) ? number_format($ht->jarak, 2) : '0'; ?> KM
-                                            </p>
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-money text-success"></i>
-                                                <?= !empty($ht->harga_mulai) ? $ht->harga_mulai : '-'; ?>
-                                            </p>
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-map-marker text-danger"></i>
-                                                <?= word_limiter($ht->alamat, 10); ?>
-                                            </p>
-
-
-                                            <div class="mt-3">
-
-                                                <a href="<?= base_url('hotel/detail/' . $ht->hotel_id); ?>" class="btn btn-primary btn-sm mr-2">
-                                                    <i class="fa fa-eye"></i> Detail
-                                                </a>
-
-
-                                                <?php if (!empty($ht->maps)): ?>
-
-                                                    <a href="<?= $ht->maps; ?>" target="_blank" class="btn btn-success btn-sm">
-                                                        <i class="fa fa-map-marker"></i> Lokasi
-                                                    </a>
-
-                                                <?php endif; ?>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        <?php endforeach; ?>
-
-                    </div>
-
-                <?php endif; ?>
-
-                <!-- =========================
-REKOMENDASI OLEH-OLEH LAINNYA
-========================= -->
-
-                <?php if (!empty($oleh_terdekat)): ?>
-
-                    <div class="box-shadow-full mt-4">
-
-                        <h3 class="title-left mb-4">
-                            Oleh-Oleh Lainnya
-                        </h3>
-
-                        <?php foreach ($oleh_terdekat as $ot): ?>
-
-                            <div class="card shadow-sm mb-3">
-
-                                <div class="row no-gutters align-items-center">
-
-                                    <div class="col-md-4">
-
-                                        <img src="<?= !empty($ot->foto)
-                                                        ? base_url('uploads/oleh_oleh/' . $ot->foto)
-                                                        : base_url('assets_frontend/img/no-image.jpg'); ?>"
-                                            class="img-fluid rounded-left"
-                                            style="height:170px;width:100%;object-fit:cover;">
-
-                                    </div>
-
-
-                                    <div class="col-md-8">
-
-                                        <div class="card-body">
-
-                                            <h5 class="mb-3">
-                                                <?= $ot->nama_produk; ?>
-                                            </h5>
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-shopping-bag text-primary"></i>
-                                                <?= !empty($ot->nama_toko) ? $ot->nama_toko : '-'; ?>
-                                            </p>
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-road text-info"></i>
-                                                <?= number_format($ot->jarak, 2); ?> KM
-                                            </p>
-
-
-                                            <p class="mb-3">
-                                                <i class="fa fa-map-marker text-danger"></i>
-                                                <?= word_limiter($ot->alamat, 10); ?>
-                                            </p>
-
-
-                                            <?php if (!empty($ot->maps)): ?>
-
-                                                <a href="<?= $ot->maps; ?>"
-                                                    target="_blank"
-                                                    class="btn btn-success btn-sm">
-
-                                                    <i class="fa fa-map-marker"></i>
-                                                    Lihat Lokasi
-
-                                                </a>
-
-                                            <?php endif; ?>
-
-
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-                        <?php endforeach; ?>
-
-                    </div>
-
-                <?php endif; ?>
-
-
-
-
-
-                <!-- =========================
-REKOMENDASI PERNAK-PERNIK LAINNYA
-========================= -->
-
-                <?php if (!empty($pernak_terdekat)): ?>
-
-                    <div class="box-shadow-full mt-4">
-
-
-                        <h3 class="title-left mb-4">
-                            Pernak-Pernik Lainnya
-                        </h3>
-
-
-
-                        <?php foreach ($pernak_terdekat as $pt): ?>
-
-
-                            <div class="card shadow-sm mb-3">
-
-
-                                <div class="row no-gutters align-items-center">
-
-
-                                    <div class="col-md-4">
-
-
-                                        <img src="<?= !empty($pt->foto)
-                                                        ? base_url('uploads/pernak_pernik/' . $pt->foto)
-                                                        : base_url('assets_frontend/img/no-image.jpg'); ?>"
-                                            class="img-fluid rounded-left"
-                                            style="height:170px;width:100%;object-fit:cover;">
-
-
-                                    </div>
-
-
-
-                                    <div class="col-md-8">
-
-
-                                        <div class="card-body">
-
-
-                                            <h5 class="mb-3">
-                                                <?= $pt->nama_produk; ?>
-                                            </h5>
-
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-shopping-bag text-primary"></i>
-                                                <?= !empty($pt->nama_toko) ? $pt->nama_toko : '-'; ?>
-                                            </p>
-
-
-
-                                            <p class="mb-2">
-                                                <i class="fa fa-road text-info"></i>
-                                                <?= number_format($pt->jarak, 2); ?> KM
-                                            </p>
-
-
-
-                                            <p class="mb-3">
-                                                <i class="fa fa-map-marker text-danger"></i>
-                                                <?= word_limiter($pt->alamat, 10); ?>
-                                            </p>
-
-
-
-                                            <?php if (!empty($pt->maps)): ?>
-
-
-                                                <a href="<?= $pt->maps; ?>"
-                                                    target="_blank"
-                                                    class="btn btn-success btn-sm">
-
-                                                    <i class="fa fa-map-marker"></i>
-                                                    Lihat Lokasi
-
-                                                </a>
-
-
-                                            <?php endif; ?>
-
-
-                                        </div>
-
-
-                                    </div>
-
-
-                                </div>
-
-
-                            </div>
-
-
-                        <?php endforeach; ?>
-
-
-                    </div>
-
+                    </a>
 
                 <?php endif; ?>
 
             </div>
-            <!-- END CONTENT UTAMA col-lg-8 -->
+
+        </div>
+
+    </div>
+
+    <a href="#quick-info" class="hero-scroll">
+
+        <span>Scroll</span>
+
+        <i class="fa fa-angle-down"></i>
+
+    </a>
+
+</section>
 
 
-            <!-- =========================
-            SIDEBAR KANAN
-            ========================= -->
 
-            <div class="col-lg-4">
+<!-- =========================================================
+QUICK INFO
+========================================================= -->
+
+<section class="quick-info" id="quick-info">
+
+    <div class="container">
+
+        <div class="quick-box">
+
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <div class="quick-item">
+
+                        <i class="fa fa-ticket"></i>
+
+                        <h5>Harga Tiket</h5>
+
+                        <p>
+
+                            <?= !empty($destinasi->harga_tiket)
+                                ? $destinasi->harga_tiket
+                                : 'Gratis'; ?>
+
+                        </p>
+
+                    </div>
+
+                </div>
 
 
-                <!-- DESTINASI LAINNYA -->
 
-                <?php if (!empty($destinasi_lainnya)): ?>
+                <div class="col-lg-3 col-md-6 mb-4">
 
-                    <div class="widget-sidebar">
+                    <div class="quick-item">
 
-                        <h5 class="sidebar-title">
-                            Destinasi Lainnya
-                        </h5>
+                        <i class="fa fa-clock-o"></i>
+
+                        <h5>Jam Operasional</h5>
+
+                        <p>
+
+                            <?= !empty($destinasi->jam_operasional)
+                                ? $destinasi->jam_operasional
+                                : '-'; ?>
+
+                        </p>
+
+                    </div>
+
+                </div>
 
 
-                        <div class="sidebar-content">
 
-                            <ul class="list-sidebar">
+                <div class="col-lg-3 col-md-6 mb-4">
 
-                                <?php foreach ($destinasi_lainnya as $dl): ?>
+                    <div class="quick-item">
 
-                                    <li>
-                                        <a href="<?= base_url('home/detail_destinasi/' . $dl->destinasi_id); ?>">
+                        <i class="fa fa-map-marker"></i>
 
-                                            <i class="fa fa-map-marker text-primary"></i>
+                        <h5>Lokasi</h5>
 
-                                            <?= $dl->destinasi_nama; ?>
+                        <p>
 
-                                        </a>
-                                    </li>
+                            <?= word_limiter($destinasi->destinasi_alamat, 8); ?>
 
-                                <?php endforeach; ?>
+                        </p>
 
-                            </ul>
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <div class="quick-item">
+
+                        <i class="fa fa-building"></i>
+
+                        <h5>Fasilitas</h5>
+
+                        <p>
+
+                            <?= count($fasilitas); ?>
+
+                            Fasilitas
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+TENTANG DESTINASI
+========================================================= -->
+
+<section class="section-space" id="tentang">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- FOTO -->
+
+            <div class="col-lg-6 mb-5 mb-lg-0">
+
+                <div class="about-image">
+
+                    <img src="<?= !empty($destinasi->destinasi_gambar)
+                                    ? base_url('uploads/destinasi/' . $destinasi->destinasi_gambar)
+                                    : base_url('assets_frontend/img/no-image.jpg'); ?>"
+                        class="img-fluid rounded-4 shadow-lg w-100"
+                        alt="<?= $destinasi->destinasi_nama; ?>">
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DESKRIPSI -->
+
+            <div class="col-lg-6">
+
+                <span class="section-badge">
+
+                    <i class="fa fa-map-marker"></i>
+
+                    Tentang Destinasi
+
+                </span>
+
+                <h2 class="section-title mt-3">
+
+                    <?= $destinasi->destinasi_nama; ?>
+
+                </h2>
+
+                <div class="section-line mb-4"></div>
+
+                <div class="destination-description">
+
+                    <?= nl2br($destinasi->destinasi_deskripsi); ?>
+
+                </div>
+
+                <div class="row mt-5">
+
+                    <div class="col-md-6 mb-3">
+
+                        <div class="info-card">
+
+                            <div class="info-icon bg-primary">
+
+                                <i class="fa fa-ticket"></i>
+
+                            </div>
+
+                            <div>
+
+                                <small>Harga Tiket</small>
+
+                                <h6 class="mb-0">
+
+                                    <?= !empty($destinasi->harga_tiket)
+                                        ? $destinasi->harga_tiket
+                                        : 'Gratis'; ?>
+
+                                </h6>
+
+                            </div>
 
                         </div>
 
                     </div>
 
-                <?php endif; ?>
 
 
+                    <div class="col-md-6 mb-3">
 
-                <!-- NAVIGASI -->
+                        <div class="info-card">
 
-                <div class="widget-sidebar text-center">
+                            <div class="info-icon bg-success">
 
-                    <h5 class="sidebar-title">
-                        Navigasi
-                    </h5>
+                                <i class="fa fa-clock-o"></i>
 
+                            </div>
 
-                    <div class="sidebar-content">
+                            <div>
 
+                                <small>Jam Operasional</small>
 
-                        <a href="<?= base_url('home/destinasi_selengkapnya'); ?>"
-                            class="btn btn-primary btn-lg btn-block mb-3">
+                                <h6 class="mb-0">
 
-                            <i class="fa fa-map-marker"></i>
+                                    <?= !empty($destinasi->jam_operasional)
+                                        ? $destinasi->jam_operasional
+                                        : '-'; ?>
 
-                            Semua Destinasi
+                                </h6>
 
-                        </a>
+                            </div>
 
-
-
-                        <a href="<?= base_url('galeri/semua'); ?>"
-                            class="btn btn-info btn-lg btn-block mb-3">
-
-                            <i class="fa fa-image"></i>
-
-                            Galeri Destinasi
-
-                        </a>
-
-
-                        <a href="<?= base_url(); ?>"
-                            class="btn btn-outline-secondary btn-lg btn-block">
-
-                            <i class="fa fa-home"></i>
-
-                            Kembali ke Beranda
-
-                        </a>
-
+                        </div>
 
                     </div>
 
 
+
+                    <div class="col-md-6 mb-3">
+
+                        <div class="info-card">
+
+                            <div class="info-icon bg-danger">
+
+                                <i class="fa fa-map-marker"></i>
+
+                            </div>
+
+                            <div>
+
+                                <small>Alamat</small>
+
+                                <h6 class="mb-0">
+
+                                    <?= !empty($destinasi->destinasi_alamat)
+                                        ? word_limiter($destinasi->destinasi_alamat, 8)
+                                        : '-'; ?>
+
+                                </h6>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <div class="info-card">
+
+                            <div class="info-icon bg-warning">
+
+                                <i class="fa fa-building"></i>
+
+                            </div>
+
+                            <div>
+
+                                <small>Jumlah Fasilitas</small>
+
+                                <h6 class="mb-0">
+
+                                    <?= count($fasilitas); ?> Fasilitas
+
+                                </h6>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+FASILITAS DESTINASI
+========================================================= -->
+
+<?php if (!empty($fasilitas)) : ?>
+
+    <section class="section-space bg-light">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <span class="section-badge">
+
+                    <i class="fa fa-building"></i>
+
+                    Fasilitas
+
+                </span>
+
+                <h2 class="section-title mt-3">
+
+                    Fasilitas Destinasi
+
+                </h2>
+
+                <p class="section-subtitle">
+
+                    Berbagai fasilitas yang tersedia untuk menunjang kenyamanan pengunjung selama berwisata.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="row">
+
+                <?php foreach ($fasilitas as $f) : ?>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+
+                        <div class="card facility-card h-100 border-0 shadow-sm">
+
+                            <div class="facility-image">
+
+                                <img src="<?= !empty($f->foto)
+                                                ? base_url('uploads/fasilitas/' . $f->foto)
+                                                : base_url('assets_frontend/img/no-image.jpg'); ?>"
+                                    class="card-img-top"
+                                    alt="<?= $f->nama_fasilitas; ?>">
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <h5 class="facility-title">
+
+                                    <i class="fa fa-check-circle text-success mr-2"></i>
+
+                                    <?= $f->nama_fasilitas; ?>
+
+                                </h5>
+
+                                <p class="facility-desc">
+
+                                    <?= !empty($f->deskripsi)
+                                        ? word_limiter(strip_tags($f->deskripsi), 20)
+                                        : 'Fasilitas tersedia untuk menunjang kenyamanan pengunjung.'; ?>
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<?php endif; ?>
+
+<!-- =========================================================
+LOKASI DESTINASI
+========================================================= -->
+
+<?php if (!empty($destinasi->maps)) : ?>
+
+    <?php
+    $link_maps = $destinasi->maps;
+
+    if (strpos($destinasi->maps, '<iframe') !== false) {
+
+        preg_match('/src="([^"]+)"/', $destinasi->maps, $match);
+
+        $link_maps = isset($match[1]) ? $match[1] : '#';
+    }
+    ?>
+
+    <section class="section-space">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <!-- INFORMASI -->
+
+                <div class="col-lg-5 mb-4 mb-lg-0">
+
+                    <span class="section-badge">
+
+                        <i class="fa fa-map-marker"></i>
+
+                        Lokasi
+
+                    </span>
+
+                    <h2 class="section-title mt-3">
+
+                        Lokasi Destinasi
+
+                    </h2>
+
+                    <p class="section-subtitle">
+
+                        Temukan lokasi wisata dengan mudah melalui Google Maps.
+
+                    </p>
+
+                    <div class="location-card">
+
+                        <div class="location-item">
+
+                            <i class="fa fa-map-marker text-danger"></i>
+
+                            <div>
+
+                                <strong>Alamat</strong>
+
+                                <p class="mb-0">
+
+                                    <?= !empty($destinasi->destinasi_alamat)
+                                        ? $destinasi->destinasi_alamat
+                                        : '-'; ?>
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <a href="<?= $link_maps; ?>"
+                            target="_blank"
+                            class="btn btn-success btn-lg btn-block mt-4">
+
+                            <i class="fa fa-map-marker"></i>
+
+                            Buka Google Maps
+
+                        </a>
+
+                    </div>
+
                 </div>
 
 
+
+                <!-- GOOGLE MAPS -->
+
+                <div class="col-lg-7">
+
+                    <div class="map-card shadow">
+
+                        <?php if (strpos($destinasi->maps, '<iframe') !== false) : ?>
+
+                            <?= $destinasi->maps; ?>
+
+                        <?php else : ?>
+
+                            <iframe
+                                src="<?= $link_maps; ?>"
+                                width="100%"
+                                height="450"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy">
+                            </iframe>
+
+                        <?php endif; ?>
+
+                    </div>
+
+                </div>
+
             </div>
-            <!-- END SIDEBAR -->
 
         </div>
-        <!-- END ROW -->
+
+    </section>
+
+<?php endif; ?>
+
+<!-- =========================================================
+HOTEL SEKITAR DESTINASI
+========================================================= -->
+
+<?php if (!empty($hotel)) : ?>
+
+    <section class="section-space bg-light">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <span class="section-badge">
+
+                    <i class="fa fa-bed"></i>
+
+                    Penginapan
+
+                </span>
+
+                <h2 class="section-title mt-3">
+
+                    Hotel & Penginapan
+
+                </h2>
+
+                <p class="section-subtitle">
+
+                    Pilihan hotel dan penginapan yang berada di sekitar destinasi wisata.
+
+                </p>
+
+            </div>
+
+            <div class="row">
+
+                <?php foreach ($hotel as $h) : ?>
+
+                    <div class="col-lg-12 mb-4">
+
+                        <div class="card hotel-card border-0 shadow-sm">
+
+                            <div class="row g-0 align-items-center">
+
+                                <!-- FOTO -->
+
+                                <div class="col-lg-4">
+
+                                    <div class="hotel-image">
+
+                                        <img src="<?= !empty($h->gambar)
+                                                        ? base_url('uploads/hotel/' . $h->gambar)
+                                                        : base_url('assets_frontend/img/no-image.jpg'); ?>"
+                                            class="img-fluid"
+                                            alt="<?= $h->nama_hotel; ?>">
+
+                                    </div>
+
+                                </div>
+
+                                <!-- INFORMASI -->
+
+                                <div class="col-lg-8">
+
+                                    <div class="card-body p-4">
+
+                                        <h3 class="hotel-title">
+
+                                            <?= $h->nama_hotel; ?>
+
+                                        </h3>
+
+                                        <div class="hotel-rating mb-3">
+
+                                            <i class="fa fa-star text-warning"></i>
+
+                                            <strong>
+
+                                                <?= !empty($h->rating)
+                                                    ? $h->rating
+                                                    : '-'; ?>
+
+                                            </strong>
+
+                                        </div>
+
+                                        <p class="hotel-address">
+
+                                            <i class="fa fa-map-marker text-danger"></i>
+
+                                            <?= $h->alamat; ?>
+
+                                        </p>
+
+                                        <p class="hotel-price">
+
+                                            <i class="fa fa-money text-success"></i>
+
+                                            Mulai
+
+                                            <strong>
+
+                                                <?= !empty($h->harga_mulai)
+                                                    ? $h->harga_mulai
+                                                    : '-'; ?>
+
+                                            </strong>
+
+                                        </p>
+
+                                        <?php if (!empty($h->deskripsi)) : ?>
+
+                                            <p class="hotel-desc">
+
+                                                <?= word_limiter(strip_tags($h->deskripsi), 28); ?>
+
+                                            </p>
+
+                                        <?php endif; ?>
+
+                                        <div class="mt-4">
+
+                                            <a href="<?= base_url('hotel/detail/' . $h->hotel_id); ?>"
+                                                class="btn btn-primary">
+
+                                                <i class="fa fa-eye"></i>
+
+                                                Detail Hotel
+
+                                            </a>
+
+                                            <?php if (!empty($h->maps)) : ?>
+
+                                                <a href="<?= $h->maps; ?>"
+                                                    target="_blank"
+                                                    class="btn btn-success ml-2">
+
+                                                    <i class="fa fa-map-marker"></i>
+
+                                                    Google Maps
+
+                                                </a>
+
+                                            <?php endif; ?>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<?php endif; ?>
+
+<!-- =========================================================
+KULINER SEKITAR DESTINASI
+========================================================= -->
+
+<?php if (!empty($kuliner)) : ?>
+
+    <section class="section-space">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <span class="section-badge">
+
+                    <i class="fa fa-cutlery"></i>
+
+                    Kuliner
+
+                </span>
+
+                <h2 class="section-title mt-3">
+
+                    Kuliner Sekitar Destinasi
+
+                </h2>
+
+                <p class="section-subtitle">
+
+                    Jangan lewatkan berbagai pilihan kuliner khas yang berada di sekitar destinasi wisata.
+
+                </p>
+
+            </div>
+
+            <div class="row">
+
+                <?php foreach ($kuliner as $k) : ?>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+
+                        <div class="card modern-card h-100 border-0 shadow-sm">
+
+                            <div class="modern-card-image">
+
+                                <img src="<?= !empty($k->foto)
+                                                ? base_url('uploads/kuliner/' . $k->foto)
+                                                : base_url('assets_frontend/img/no-image.jpg'); ?>"
+                                    class="card-img-top"
+                                    alt="<?= $k->nama_kuliner; ?>">
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <h5 class="modern-card-title">
+
+                                    <?= $k->nama_kuliner; ?>
+
+                                </h5>
+
+                                <p class="text-success font-weight-bold mb-2">
+
+                                    <i class="fa fa-money"></i>
+
+                                    <?= !empty($k->harga) ? $k->harga : '-'; ?>
+
+                                </p>
+
+                                <p class="text-muted">
+
+                                    <i class="fa fa-map-marker text-danger"></i>
+
+                                    <?= word_limiter($k->alamat, 10); ?>
+
+                                </p>
+
+                                <?php if (!empty($k->deskripsi)) : ?>
+
+                                    <p class="modern-card-desc">
+
+                                        <?= word_limiter(strip_tags($k->deskripsi), 18); ?>
+
+                                    </p>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                            <div class="card-footer bg-white border-0">
+
+                                <?php if (!empty($k->maps)) : ?>
+
+                                    <a href="<?= $k->maps; ?>"
+                                        target="_blank"
+                                        class="btn btn-success btn-block">
+
+                                        <i class="fa fa-map-marker"></i>
+
+                                        Lihat Lokasi
+
+                                    </a>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<?php endif; ?>
+
+<!-- =========================================================
+OLEH-OLEH KHAS DESTINASI
+========================================================= -->
+
+<?php if (!empty($oleh_oleh)) : ?>
+
+    <section class="section-space bg-light">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <span class="section-badge">
+
+                    <i class="fa fa-shopping-bag"></i>
+
+                    Oleh-Oleh
+
+                </span>
+
+                <h2 class="section-title mt-3">
+
+                    Oleh-Oleh Khas Destinasi
+
+                </h2>
+
+                <p class="section-subtitle">
+
+                    Temukan berbagai oleh-oleh khas yang dapat Anda bawa pulang sebagai kenang-kenangan.
+
+                </p>
+
+            </div>
+
+            <div class="row">
+
+                <?php foreach ($oleh_oleh as $o) : ?>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+
+                        <div class="card modern-card h-100 border-0 shadow-sm">
+
+                            <div class="modern-card-image">
+
+                                <img src="<?= !empty($o->foto)
+                                                ? base_url('uploads/oleh_oleh/' . $o->foto)
+                                                : base_url('assets_frontend/img/no-image.jpg'); ?>"
+                                    class="card-img-top"
+                                    alt="<?= $o->nama_produk; ?>">
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <h5 class="modern-card-title">
+
+                                    <?= $o->nama_produk; ?>
+
+                                </h5>
+
+                                <?php if (!empty($o->nama_toko)) : ?>
+
+                                    <p class="mb-2 text-primary">
+
+                                        <i class="fa fa-store"></i>
+
+                                        <?= $o->nama_toko; ?>
+
+                                    </p>
+
+                                <?php endif; ?>
+
+                                <p class="text-success font-weight-bold mb-2">
+
+                                    <i class="fa fa-money"></i>
+
+                                    <?= !empty($o->harga) ? $o->harga : '-'; ?>
+
+                                </p>
+
+                                <p class="text-muted">
+
+                                    <i class="fa fa-map-marker text-danger"></i>
+
+                                    <?= word_limiter($o->alamat, 10); ?>
+
+                                </p>
+
+                                <?php if (!empty($o->deskripsi)) : ?>
+
+                                    <p class="modern-card-desc">
+
+                                        <?= word_limiter(strip_tags($o->deskripsi), 18); ?>
+
+                                    </p>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                            <div class="card-footer bg-white border-0">
+
+                                <?php if (!empty($o->maps)) : ?>
+
+                                    <a href="<?= $o->maps; ?>"
+                                        target="_blank"
+                                        class="btn btn-success btn-block">
+
+                                        <i class="fa fa-map-marker"></i>
+
+                                        Lihat Lokasi
+
+                                    </a>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<?php endif; ?>
+
+<!-- =========================================================
+PERNAK-PERNIK / SOUVENIR
+========================================================= -->
+
+<?php if (!empty($pernak_pernik)) : ?>
+
+    <section class="section-space">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <span class="section-badge">
+
+                    <i class="fa fa-gift"></i>
+
+                    Souvenir
+
+                </span>
+
+                <h2 class="section-title mt-3">
+
+                    Pernak-Pernik & Souvenir
+
+                </h2>
+
+                <p class="section-subtitle">
+
+                    Lengkapi perjalanan Anda dengan berbagai souvenir unik dan menarik khas destinasi wisata.
+
+                </p>
+
+            </div>
+
+            <div class="row">
+
+                <?php foreach ($pernak_pernik as $p) : ?>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+
+                        <div class="card modern-card h-100 border-0 shadow-sm">
+
+                            <div class="modern-card-image">
+
+                                <img src="<?= !empty($p->foto)
+                                                ? base_url('uploads/pernak_pernik/' . $p->foto)
+                                                : base_url('assets_frontend/img/no-image.jpg'); ?>"
+                                    class="card-img-top"
+                                    alt="<?= $p->nama_produk; ?>">
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <h5 class="modern-card-title">
+
+                                    <?= $p->nama_produk; ?>
+
+                                </h5>
+
+                                <?php if (!empty($p->nama_toko)) : ?>
+
+                                    <p class="mb-2 text-primary">
+
+                                        <i class="fa fa-store"></i>
+
+                                        <?= $p->nama_toko; ?>
+
+                                    </p>
+
+                                <?php endif; ?>
+
+                                <p class="text-success font-weight-bold mb-2">
+
+                                    <i class="fa fa-money"></i>
+
+                                    <?= !empty($p->harga) ? $p->harga : '-'; ?>
+
+                                </p>
+
+                                <p class="text-muted">
+
+                                    <i class="fa fa-map-marker text-danger"></i>
+
+                                    <?= word_limiter($p->alamat, 10); ?>
+
+                                </p>
+
+                                <?php if (!empty($p->deskripsi)) : ?>
+
+                                    <p class="modern-card-desc">
+
+                                        <?= word_limiter(strip_tags($p->deskripsi), 18); ?>
+
+                                    </p>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                            <div class="card-footer bg-white border-0">
+
+                                <?php if (!empty($p->maps)) : ?>
+
+                                    <a href="<?= $p->maps; ?>"
+                                        target="_blank"
+                                        class="btn btn-success btn-block">
+
+                                        <i class="fa fa-map-marker"></i>
+
+                                        Lihat Lokasi
+
+                                    </a>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<?php endif; ?>
+
+<!-- =========================================================
+DESTINASI LAINNYA
+========================================================= -->
+
+<?php if (!empty($destinasi_lainnya)) : ?>
+
+    <section class="section-space bg-light">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <span class="section-badge">
+
+                    <i class="fa fa-map"></i>
+
+                    Rekomendasi
+
+                </span>
+
+                <h2 class="section-title mt-3">
+
+                    Destinasi Lainnya
+
+                </h2>
+
+                <p class="section-subtitle">
+
+                    Jelajahi destinasi wisata menarik lainnya yang mungkin Anda sukai.
+
+                </p>
+
+            </div>
+
+            <div class="row">
+
+                <?php foreach ($destinasi_lainnya as $d) : ?>
+
+                    <div class="col-lg-3 col-md-6 mb-4">
+
+                        <div class="card modern-card h-100 border-0 shadow-sm">
+
+                            <div class="modern-card-image">
+
+                                <img src="<?= !empty($d->destinasi_gambar)
+                                                ? base_url('uploads/destinasi/' . $d->destinasi_gambar)
+                                                : base_url('assets_frontend/img/no-image.jpg'); ?>"
+                                    class="card-img-top"
+                                    alt="<?= $d->destinasi_nama; ?>">
+
+                            </div>
+
+                            <div class="card-body d-flex flex-column">
+
+                                <h5 class="modern-card-title">
+
+                                    <?= $d->destinasi_nama; ?>
+
+                                </h5>
+
+                                <p class="text-muted mb-3">
+
+                                    <i class="fa fa-map-marker text-danger"></i>
+
+                                    <?= word_limiter($d->destinasi_alamat, 8); ?>
+
+                                </p>
+
+                                <p class="modern-card-desc">
+
+                                    <?= word_limiter(strip_tags($d->destinasi_deskripsi), 15); ?>
+
+                                </p>
+
+                                <div class="mt-auto">
+
+                                    <a href="<?= base_url('home/detail_destinasi/' . $d->destinasi_id); ?>"
+                                        class="btn btn-primary btn-block">
+
+                                        <i class="fa fa-eye"></i>
+
+                                        Lihat Detail
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<?php endif; ?>
+
+<!-- =========================================================
+CALL TO ACTION
+========================================================= -->
+
+<section class="section-space">
+
+    <div class="container">
+
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+            <div class="card-body text-center py-5 px-4">
+
+                <span class="badge badge-primary px-3 py-2 mb-3">
+
+                    <i class="fa fa-compass"></i>
+
+                    Jelajahi Lebih Banyak
+
+                </span>
+
+                <h2 class="mb-3">
+
+                    Masih Banyak Destinasi Menarik Menanti Anda
+
+                </h2>
+
+                <p class="text-muted mx-auto mb-4" style="max-width:700px;">
+
+                    Temukan berbagai destinasi wisata lainnya, lengkap dengan informasi fasilitas, hotel, kuliner, oleh-oleh, dan souvenir untuk melengkapi perjalanan wisata Anda.
+
+                </p>
+
+                <div class="d-flex justify-content-center flex-wrap">
+
+                    <a href="<?= base_url('home/destinasi_selengkapnya'); ?>"
+                        class="btn btn-primary btn-lg mr-2 mb-2">
+
+                        <i class="fa fa-map"></i>
+
+                        Semua Destinasi
+
+                    </a>
+
+                    <a href="<?= base_url(); ?>"
+                        class="btn btn-outline-primary btn-lg mb-2">
+
+                        <i class="fa fa-home"></i>
+
+                        Kembali ke Beranda
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
-    <!-- END CONTAINER -->
 
 </section>
+
+<!-- =========================================================
+END DETAIL DESTINASI
+========================================================= -->
+
+<a href="#"
+    id="backToTop"
+    class="back-to-top">
+
+    <i class="fa fa-chevron-up"></i>
+
+</a>

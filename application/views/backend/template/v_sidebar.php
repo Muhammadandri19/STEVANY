@@ -63,36 +63,48 @@
                 <li class="nav-header">MASTER DATA</li>
 
                 <li class="nav-item">
-                    <a href="<?= base_url('kategori'); ?>" class="nav-link">
+                    <a href="<?= base_url('kategori'); ?>"
+                        class="nav-link <?= ($this->uri->segment(1) == 'kategori') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-list"></i>
                         <p>Kategori Wisata</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= base_url('destinasi'); ?>" class="nav-link">
+                    <a href="<?= base_url('destinasi'); ?>"
+                        class="nav-link <?= ($this->uri->segment(1) == 'destinasi') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-map-marker-alt"></i>
                         <p>Destinasi Wisata</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= base_url('hotel'); ?>" class="nav-link">
+                    <a href="<?= base_url('fasilitas'); ?>"
+                        class="nav-link <?= ($this->uri->segment(1) == 'fasilitas') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-concierge-bell"></i>
+                        <p>Fasilitas</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('hotel'); ?>"
+                        class="nav-link <?= ($this->uri->segment(1) == 'hotel') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-hotel"></i>
                         <p>Hotel / Penginapan</p>
                     </a>
                 </li>
 
-
                 <li class="nav-item">
-                    <a href="<?= base_url('oleh_oleh'); ?>" class="nav-link">
+                    <a href="<?= base_url('oleh_oleh'); ?>"
+                        class="nav-link <?= ($this->uri->segment(1) == 'oleh_oleh') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-shopping-bag"></i>
                         <p>Oleh-Oleh</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= base_url('pernak_pernik'); ?>" class="nav-link">
+                    <a href="<?= base_url('pernak_pernik'); ?>"
+                        class="nav-link <?= ($this->uri->segment(1) == 'pernak_pernik') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-gift"></i>
                         <p>Pernak-Pernik</p>
                     </a>

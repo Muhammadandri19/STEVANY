@@ -1,0 +1,1955 @@
+/*==========================================================
+DETAIL DESTINASI CSS
+STEVANY TRAVELING
+==========================================================*/
+
+/*==========================================================
+ROOT
+==========================================================*/
+
+:root{
+
+    --primary:#0d6efd;
+    --secondary:#6c757d;
+    --success:#198754;
+    --danger:#dc3545;
+    --warning:#ffc107;
+    --info:#0dcaf0;
+
+    --dark:#1f2937;
+    --light:#f8f9fa;
+    --white:#ffffff;
+
+    --text:#555;
+    --heading:#222;
+
+    --radius:18px;
+    --radius-sm:12px;
+
+    --shadow:0 10px 25px rgba(0,0,0,.08);
+    --shadow-lg:0 18px 45px rgba(0,0,0,.15);
+
+    --transition:.35s ease;
+
+}
+
+
+
+/*==========================================================
+RESET
+==========================================================*/
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+    background:#f7f8fa;
+    color:var(--text);
+    overflow-x:hidden;
+
+}
+
+img{
+
+    max-width:100%;
+    display:block;
+
+}
+
+a{
+
+    text-decoration:none;
+    transition:var(--transition);
+
+}
+
+ul{
+
+    list-style:none;
+    margin:0;
+    padding:0;
+
+}
+
+
+
+/*==========================================================
+GLOBAL
+==========================================================*/
+
+.section-space{
+
+    padding:90px 0;
+
+}
+
+.section-title{
+
+    color:var(--heading);
+    font-size:38px;
+    font-weight:700;
+    margin-bottom:15px;
+
+}
+
+.section-subtitle{
+
+    color:#777;
+    max-width:700px;
+    margin:auto;
+    line-height:1.9;
+
+}
+
+.section-badge{
+
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    background:#eef5ff;
+
+    color:var(--primary);
+
+    padding:10px 22px;
+
+    border-radius:50px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.section-line{
+
+    width:80px;
+    height:4px;
+
+    border-radius:20px;
+
+    background:var(--primary);
+
+}
+
+
+
+/*==========================================================
+BUTTON
+==========================================================*/
+
+.btn{
+
+    border-radius:50px;
+
+    padding:12px 28px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.btn-primary{
+
+    box-shadow:0 10px 20px rgba(13,110,253,.25);
+
+}
+
+.btn-success{
+
+    box-shadow:0 10px 20px rgba(25,135,84,.25);
+
+}
+
+
+
+/*==========================================================
+HERO
+==========================================================*/
+
+.hero-detail{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:100vh;
+
+    background-size:cover;
+
+    background-position:center;
+
+    display:flex;
+
+    align-items:center;
+
+    overflow:hidden;
+
+}
+
+.hero-detail::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        120deg,
+        rgba(0,0,0,.80),
+        rgba(0,0,0,.40)
+    );
+
+}
+
+.hero-detail::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        to top,
+        #f7f8fa,
+        transparent 25%
+    );
+
+}
+
+.hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+    color:#fff;
+
+    max-width:720px;
+
+}
+
+.hero-category{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.2);
+
+    padding:10px 20px;
+
+    border-radius:50px;
+
+    margin-bottom:25px;
+
+    font-size:14px;
+
+}
+
+.hero-title{
+
+    font-size:60px;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+    margin-bottom:25px;
+
+}
+
+.hero-desc{
+
+    color:#eee;
+
+    line-height:2;
+
+    font-size:17px;
+
+}
+
+.hero-action{
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:40px;
+
+}
+
+.btn-hero{
+
+    padding:15px 35px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+}
+
+.hero-scroll{
+
+    position:absolute;
+
+    bottom:35px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:5;
+
+    color:#fff;
+
+    text-align:center;
+
+    animation:scrollDown 2s infinite;
+
+}
+
+.hero-scroll span{
+
+    display:block;
+
+    font-size:14px;
+
+    margin-bottom:8px;
+
+}
+
+.hero-scroll i{
+
+    font-size:26px;
+
+}
+
+
+
+/*==========================================================
+BREADCRUMB
+==========================================================*/
+
+.breadcrumb-custom{
+
+    background:none;
+
+    padding:0;
+
+    margin-bottom:25px;
+
+}
+
+.breadcrumb-custom .breadcrumb-item a{
+
+    color:#fff;
+
+}
+
+.breadcrumb-custom .breadcrumb-item.active{
+
+    color:#ffd54f;
+
+}
+
+
+
+/*==========================================================
+ANIMATION
+==========================================================*/
+
+@keyframes scrollDown{
+
+    0%{
+
+        transform:translate(-50%,0);
+
+    }
+
+    50%{
+
+        transform:translate(-50%,10px);
+
+    }
+
+    100%{
+
+        transform:translate(-50%,0);
+
+    }
+
+}
+
+/*==========================================================
+TENTANG DESTINASI
+==========================================================*/
+
+.about-image{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.about-image img{
+
+    width:100%;
+
+    height:500px;
+
+    object-fit:cover;
+
+    transition:.6s;
+
+}
+
+.about-image:hover img{
+
+    transform:scale(1.08);
+
+}
+
+.destination-description{
+
+    font-size:16px;
+
+    line-height:2;
+
+    color:#666;
+
+    text-align:justify;
+
+}
+
+.destination-description p{
+
+    margin-bottom:18px;
+
+}
+
+.destination-description strong{
+
+    color:var(--heading);
+
+}
+
+
+
+/*==========================================================
+INFO CARD
+==========================================================*/
+
+.info-card{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:18px;
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+    height:100%;
+
+}
+
+.info-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.info-icon{
+
+    width:60px;
+
+    height:60px;
+
+    min-width:60px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#fff;
+
+    font-size:22px;
+
+}
+
+.info-card small{
+
+    display:block;
+
+    color:#888;
+
+    font-size:13px;
+
+    margin-bottom:5px;
+
+}
+
+.info-card h6{
+
+    margin:0;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    color:#222;
+
+    line-height:1.6;
+
+}
+
+
+
+/*==========================================================
+QUICK INFO
+==========================================================*/
+
+.quick-info{
+
+    margin-top:-70px;
+
+    position:relative;
+
+    z-index:10;
+
+}
+
+.quick-box{
+
+    background:#fff;
+
+    border-radius:25px;
+
+    padding:35px;
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.quick-item{
+
+    text-align:center;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    transition:var(--transition);
+
+    height:100%;
+
+}
+
+.quick-item:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow);
+
+    background:#fafafa;
+
+}
+
+.quick-item i{
+
+    width:75px;
+
+    height:75px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:auto;
+
+    margin-bottom:18px;
+
+    color:#fff;
+
+    font-size:28px;
+
+}
+
+.quick-item:nth-child(1) i{
+
+    background:var(--success);
+
+}
+
+.quick-item:nth-child(2) i{
+
+    background:var(--primary);
+
+}
+
+.quick-item:nth-child(3) i{
+
+    background:var(--danger);
+
+}
+
+.quick-item:nth-child(4) i{
+
+    background:var(--warning);
+
+    color:#222;
+
+}
+
+.quick-item h5{
+
+    margin-bottom:10px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#222;
+
+}
+
+.quick-item p{
+
+    margin:0;
+
+    color:#777;
+
+    line-height:1.8;
+
+}
+
+
+
+/*==========================================================
+CARD UMUM
+==========================================================*/
+
+.card{
+
+    border:none;
+
+    border-radius:var(--radius);
+
+}
+
+.card.shadow-sm{
+
+    box-shadow:var(--shadow)!important;
+
+}
+
+.card.shadow-lg{
+
+    box-shadow:var(--shadow-lg)!important;
+
+}
+
+
+
+/*==========================================================
+BADGE
+==========================================================*/
+
+.badge{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    padding:10px 18px;
+
+    border-radius:50px;
+
+}
+
+.badge-primary{
+
+    background:rgba(13,110,253,.12);
+
+    color:var(--primary);
+
+}
+
+
+
+/*==========================================================
+SECTION TITLE
+==========================================================*/
+
+.text-center .section-title{
+
+    margin-top:15px;
+
+    margin-bottom:15px;
+
+}
+
+.text-center .section-subtitle{
+
+    max-width:700px;
+
+    margin:auto;
+
+}
+
+/*==========================================================
+MODERN CARD
+Digunakan untuk:
+- Fasilitas
+- Kuliner
+- Oleh-Oleh
+- Pernak-Pernik
+- Destinasi Lainnya
+==========================================================*/
+
+.modern-card{
+
+    border:none;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    transition:.35s;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+.modern-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 18px 45px rgba(0,0,0,.18);
+
+}
+
+
+
+/*==========================================================
+IMAGE
+==========================================================*/
+
+.modern-card-image{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.modern-card-image img{
+
+    width:100%;
+
+    height:250px;
+
+    object-fit:cover;
+
+    transition:.5s;
+
+}
+
+.modern-card:hover .modern-card-image img{
+
+    transform:scale(1.08);
+
+}
+
+
+
+/*==========================================================
+BODY
+==========================================================*/
+
+.modern-card .card-body{
+
+    padding:25px;
+
+}
+
+.modern-card-title{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#222;
+
+    margin-bottom:15px;
+
+    line-height:1.4;
+
+}
+
+.modern-card-desc{
+
+    color:#777;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+}
+
+
+
+/*==========================================================
+FOOTER
+==========================================================*/
+
+.modern-card .card-footer{
+
+    background:#fff;
+
+    border:none;
+
+    padding:0 25px 25px;
+
+}
+
+
+
+/*==========================================================
+BUTTON
+==========================================================*/
+
+.modern-card .btn{
+
+    border-radius:50px;
+
+    padding:12px 25px;
+
+    font-weight:600;
+
+}
+
+
+
+/*==========================================================
+FACILITY CARD
+==========================================================*/
+
+.facility-card{
+
+    border:none;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+.facility-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 45px rgba(0,0,0,.16);
+
+}
+
+.facility-image{
+
+    overflow:hidden;
+
+}
+
+.facility-image img{
+
+    width:100%;
+
+    height:230px;
+
+    object-fit:cover;
+
+    transition:.5s;
+
+}
+
+.facility-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+.facility-title{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#222;
+
+    margin-bottom:12px;
+
+}
+
+.facility-desc{
+
+    color:#777;
+
+    line-height:1.8;
+
+}
+
+
+
+/*==========================================================
+TEXT
+==========================================================*/
+
+.text-success{
+
+    font-weight:600;
+
+}
+
+.text-muted{
+
+    line-height:1.8;
+
+}
+
+
+
+/*==========================================================
+BADGE
+==========================================================*/
+
+.card-badge{
+
+    position:absolute;
+
+    top:15px;
+
+    left:15px;
+
+    background:rgba(13,110,253,.95);
+
+    color:#fff;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+
+/*==========================================================
+HOVER ICON
+==========================================================*/
+
+.modern-card:hover .fa{
+
+    transition:.3s;
+
+}
+
+.modern-card:hover .fa-map-marker{
+
+    color:#dc3545;
+
+}
+
+.modern-card:hover .fa-money{
+
+    color:#198754;
+
+}
+
+.modern-card:hover .fa-store{
+
+    color:#0d6efd;
+
+}
+
+
+
+/*==========================================================
+CARD HEIGHT
+==========================================================*/
+
+.modern-card{
+
+    height:100%;
+
+}
+
+.modern-card .card-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.modern-card .card-footer{
+
+    margin-top:auto;
+
+}
+
+/*==========================================================
+LOKASI DESTINASI
+==========================================================*/
+
+.location-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:35px;
+
+    box-shadow:var(--shadow);
+
+    height:100%;
+
+}
+
+.location-item{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:18px;
+
+}
+
+.location-item i{
+
+    font-size:32px;
+
+    margin-top:3px;
+
+}
+
+.location-item strong{
+
+    display:block;
+
+    font-size:18px;
+
+    color:#222;
+
+    margin-bottom:10px;
+
+}
+
+.location-item p{
+
+    color:#666;
+
+    line-height:1.9;
+
+    margin:0;
+
+}
+
+
+
+/*==========================================================
+GOOGLE MAPS
+==========================================================*/
+
+.map-card{
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.map-card iframe{
+
+    width:100%;
+
+    height:450px;
+
+    border:0;
+
+    display:block;
+
+}
+
+
+
+/*==========================================================
+HOTEL CARD
+==========================================================*/
+
+.hotel-card{
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    transition:.35s;
+
+    background:#fff;
+
+}
+
+.hotel-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.hotel-image{
+
+    overflow:hidden;
+
+    height:100%;
+
+}
+
+.hotel-image img{
+
+    width:100%;
+
+    height:320px;
+
+    object-fit:cover;
+
+    transition:.5s;
+
+}
+
+.hotel-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+.hotel-title{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#222;
+
+    margin-bottom:10px;
+
+}
+
+.hotel-rating{
+
+    color:#f5b301;
+
+    font-size:16px;
+
+}
+
+.hotel-rating i{
+
+    margin-right:6px;
+
+}
+
+.hotel-address{
+
+    color:#666;
+
+    margin-bottom:12px;
+
+    line-height:1.8;
+
+}
+
+.hotel-address i{
+
+    margin-right:8px;
+
+}
+
+.hotel-price{
+
+    color:#198754;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+
+}
+
+.hotel-price i{
+
+    margin-right:8px;
+
+}
+
+.hotel-desc{
+
+    color:#777;
+
+    line-height:1.9;
+
+}
+
+.hotel-card .btn{
+
+    min-width:150px;
+
+}
+
+
+
+/*==========================================================
+CTA
+==========================================================*/
+
+.cta-section{
+
+    background:linear-gradient(135deg,#0d6efd,#3f8cff);
+
+    border-radius:25px;
+
+    color:#fff;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.cta-section::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-120px;
+
+    right:-120px;
+
+    width:260px;
+
+    height:260px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.cta-section::after{
+
+    content:"";
+
+    position:absolute;
+
+    bottom:-90px;
+
+    left:-90px;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.06);
+
+}
+
+.cta-section .card-body{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.cta-section h2{
+
+    color:#fff;
+
+    font-weight:700;
+
+}
+
+.cta-section p{
+
+    color:rgba(255,255,255,.9);
+
+    line-height:1.9;
+
+}
+
+.cta-section .btn{
+
+    min-width:210px;
+
+}
+
+.cta-section .btn-outline-primary{
+
+    background:#fff;
+
+    border-color:#fff;
+
+    color:#0d6efd;
+
+}
+
+.cta-section .btn-outline-primary:hover{
+
+    background:transparent;
+
+    color:#fff;
+
+}
+
+
+
+/*==========================================================
+SHADOW
+==========================================================*/
+
+.shadow-hover{
+
+    transition:.35s;
+
+}
+
+.shadow-hover:hover{
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+
+
+/*==========================================================
+IMAGE EFFECT
+==========================================================*/
+
+.img-hover{
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+}
+
+.img-hover img{
+
+    transition:.6s;
+
+}
+
+.img-hover:hover img{
+
+    transform:scale(1.08);
+
+}
+
+
+
+/*==========================================================
+HOVER
+==========================================================*/
+
+.hotel-card:hover .hotel-title{
+
+    color:var(--primary);
+
+}
+
+.location-card:hover{
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+.map-card:hover{
+
+    box-shadow:0 20px 50px rgba(0,0,0,.18);
+
+}
+
+/*==========================================================
+RESPONSIVE
+==========================================================*/
+
+/* =========================
+Large Desktop
+========================= */
+
+@media (max-width:1400px){
+
+    .hero-title{
+
+        font-size:54px;
+
+    }
+
+    .section-title{
+
+        font-size:34px;
+
+    }
+
+}
+
+
+/* =========================
+Laptop
+========================= */
+
+@media (max-width:1200px){
+
+    .hero-title{
+
+        font-size:48px;
+
+    }
+
+    .hero-desc{
+
+        font-size:16px;
+
+    }
+
+    .hotel-title{
+
+        font-size:24px;
+
+    }
+
+    .about-image img{
+
+        height:430px;
+
+    }
+
+}
+
+
+/* =========================
+Tablet
+========================= */
+
+@media (max-width:992px){
+
+    .section-space{
+
+        padding:70px 0;
+
+    }
+
+    .hero-detail{
+
+        min-height:85vh;
+
+    }
+
+    .hero-content{
+
+        text-align:center;
+
+        margin:auto;
+
+    }
+
+    .hero-title{
+
+        font-size:42px;
+
+    }
+
+    .hero-desc{
+
+        margin:auto;
+
+    }
+
+    .hero-action{
+
+        justify-content:center;
+
+    }
+
+    .quick-info{
+
+        margin-top:40px;
+
+    }
+
+    .quick-box{
+
+        padding:25px;
+
+    }
+
+    .about-image{
+
+        margin-bottom:35px;
+
+    }
+
+    .about-image img{
+
+        height:380px;
+
+    }
+
+    .hotel-image img{
+
+        height:280px;
+
+    }
+
+    .hotel-title{
+
+        font-size:24px;
+
+    }
+
+    .location-card{
+
+        margin-bottom:30px;
+
+    }
+
+}
+
+
+/* =========================
+Mobile
+========================= */
+
+@media (max-width:768px){
+
+    .section-space{
+
+        padding:60px 0;
+
+    }
+
+    .section-title{
+
+        font-size:30px;
+
+    }
+
+    .section-subtitle{
+
+        font-size:15px;
+
+    }
+
+    .hero-detail{
+
+        min-height:80vh;
+
+    }
+
+    .hero-title{
+
+        font-size:34px;
+
+    }
+
+    .hero-desc{
+
+        font-size:15px;
+
+        line-height:1.8;
+
+    }
+
+    .hero-action{
+
+        flex-direction:column;
+
+    }
+
+    .hero-action .btn{
+
+        width:100%;
+
+    }
+
+    .hero-scroll{
+
+        display:none;
+
+    }
+
+    .quick-box{
+
+        padding:20px;
+
+    }
+
+    .quick-item{
+
+        margin-bottom:20px;
+
+    }
+
+    .quick-item:last-child{
+
+        margin-bottom:0;
+
+    }
+
+    .info-card{
+
+        padding:18px;
+
+    }
+
+    .info-icon{
+
+        width:50px;
+
+        height:50px;
+
+        min-width:50px;
+
+        font-size:18px;
+
+    }
+
+    .about-image img{
+
+        height:320px;
+
+    }
+
+    .destination-description{
+
+        font-size:15px;
+
+    }
+
+    .modern-card-image img{
+
+        height:220px;
+
+    }
+
+    .facility-image img{
+
+        height:220px;
+
+    }
+
+    .hotel-image img{
+
+        height:240px;
+
+    }
+
+    .hotel-card .btn{
+
+        width:100%;
+
+        margin-bottom:10px;
+
+    }
+
+    .hotel-card .btn:last-child{
+
+        margin-bottom:0;
+
+    }
+
+    .map-card iframe{
+
+        height:350px;
+
+    }
+
+    .location-card{
+
+        padding:25px;
+
+    }
+
+    .cta-section .btn{
+
+        width:100%;
+
+        margin-bottom:15px;
+
+    }
+
+}
+
+
+/* =========================
+Small Mobile
+========================= */
+
+@media (max-width:576px){
+
+    .hero-detail{
+
+        min-height:75vh;
+
+    }
+
+    .hero-category{
+
+        font-size:12px;
+
+        padding:8px 16px;
+
+    }
+
+    .hero-title{
+
+        font-size:28px;
+
+    }
+
+    .hero-desc{
+
+        font-size:14px;
+
+    }
+
+    .section-title{
+
+        font-size:26px;
+
+    }
+
+    .section-subtitle{
+
+        font-size:14px;
+
+    }
+
+    .section-badge{
+
+        font-size:12px;
+
+        padding:8px 16px;
+
+    }
+
+    .quick-item i{
+
+        width:60px;
+
+        height:60px;
+
+        font-size:22px;
+
+    }
+
+    .quick-item h5{
+
+        font-size:16px;
+
+    }
+
+    .modern-card-title{
+
+        font-size:19px;
+
+    }
+
+    .facility-title{
+
+        font-size:18px;
+
+    }
+
+    .hotel-title{
+
+        font-size:20px;
+
+    }
+
+    .location-item{
+
+        gap:12px;
+
+    }
+
+    .location-item i{
+
+        font-size:24px;
+
+    }
+
+    .map-card iframe{
+
+        height:300px;
+
+    }
+
+}
+
+
+/* =========================
+Very Small Mobile
+========================= */
+
+@media (max-width:400px){
+
+    .hero-title{
+
+        font-size:24px;
+
+    }
+
+    .hero-desc{
+
+        font-size:13px;
+
+    }
+
+    .section-title{
+
+        font-size:22px;
+
+    }
+
+    .btn{
+
+        padding:10px 18px;
+
+        font-size:14px;
+
+    }
+
+    .modern-card .card-body{
+
+        padding:18px;
+
+    }
+
+    .modern-card .card-footer{
+
+        padding:0 18px 18px;
+
+    }
+
+    .facility-card .card-body{
+
+        padding:18px;
+
+    }
+
+    .location-card{
+
+        padding:20px;
+
+    }
+
+    .quick-box{
+
+        padding:15px;
+
+    }
+
+    .about-image img{
+
+        height:250px;
+
+    }
+
+    .modern-card-image img{
+
+        height:180px;
+
+    }
+
+    .facility-image img{
+
+        height:180px;
+
+    }
+
+    .hotel-image img{
+
+        height:200px;
+
+    }
+
+    .map-card iframe{
+
+        height:250px;
+
+    }
+
+}
