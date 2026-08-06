@@ -268,15 +268,12 @@ HERO
 }
 
 .hero-title{
-
-    font-size:60px;
-
-    font-weight:700;
-
-    line-height:1.2;
-
-    margin-bottom:25px;
-
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    color: #F4D35E;
+    text-shadow: 0 4px 15px rgba(0,0,0,.6);
 }
 
 .hero-desc{
@@ -1951,5 +1948,6 @@ Very Small Mobile
         height:250px;
 
     }
+
 
 }
