@@ -54,6 +54,7 @@ class M_tentang extends CI_Model
     // FRONTEND
     // =========================
 
+    // Mengambil data Tentang terbaru
     public function get_tentang()
     {
         return $this->db
@@ -63,18 +64,26 @@ class M_tentang extends CI_Model
             ->row();
     }
 
+    // Alias apabila nanti diperlukan
     public function get_latest()
     {
-        return $this->db
-            ->order_by('tentang_id', 'DESC')
-            ->limit(1)
-            ->get($this->table)
-            ->row();
+        return $this->get_tentang();
     }
+
+    // Mengecek apakah data Tentang tersedia
+    public function cek_data()
+    {
+        return $this->db
+            ->count_all_results($this->table);
+    }
+
+    // =========================
+    // STATISTIK
+    // =========================
 
     public function total_tentang()
     {
         return $this->db
-            ->count_all_results($this->table);
+            ->count_all($this->table);
     }
 }

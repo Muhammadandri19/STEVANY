@@ -44,7 +44,6 @@
 <main id="main">
 
 
-    <!-- TENTANG KAMI -->
     <section id="about" class="about-mf sect-pt4 route">
 
         <div class="container">
@@ -56,13 +55,10 @@
                     <div class="box-shadow-full">
 
                         <div class="title-box-2">
-
                             <h5 class="title-left">
                                 Tentang Kami
                             </h5>
-
                         </div>
-
 
                         <?php if (!empty($tentang)): ?>
 
@@ -72,14 +68,10 @@
 
                         <?php endif; ?>
 
-
-                        <a href="<?= base_url('tentang'); ?>"
-                            class="btn btn-primary">
-
+                        <a href="<?= site_url('tentang/frontend'); ?>" class="btn btn-primary">
+                            <i class="fa fa-arrow-right mr-1"></i>
                             Baca Selengkapnya
-
                         </a>
-
                     </div>
 
                 </div>

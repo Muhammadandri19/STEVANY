@@ -7,15 +7,20 @@ class Tentang extends CI_Controller
     {
         parent::__construct();
 
+        $this->load->model('M_tentang');
+    }
+
+    // ======================================================
+    // BACKEND
+    // URL : domain.com/tentang
+    // ======================================================
+
+    public function index()
+    {
         if (!$this->session->userdata('id')) {
             redirect('login');
         }
 
-        $this->load->model('M_tentang');
-    }
-
-    public function index()
-    {
         $data['title'] = 'Tentang Kami';
         $data['tentang'] = $this->M_tentang->get_all();
 
@@ -25,30 +30,52 @@ class Tentang extends CI_Controller
         $this->load->view('backend/template/v_footer');
     }
 
+    // ======================================================
+    // FRONTEND
+    // URL : domain.com/tentang/frontend
+    // ======================================================
+
+    public function frontend()
+    {
+        $data['title'] = 'Tentang Kami';
+        $data['tentang'] = $this->M_tentang->get_tentang();
+
+        $this->load->view('frontend/template/v_header', $data);
+        $this->load->view('frontend/v_tentang', $data);
+        $this->load->view('frontend/template/v_footer');
+    }
+
+    // ======================================================
+    // SIMPAN
+    // ======================================================
+
     public function simpan()
     {
+        if (!$this->session->userdata('id')) {
+            redirect('login');
+        }
+
         $gambar = '';
 
         if (!empty($_FILES['gambar']['name'])) {
 
-            $config['upload_path'] = './uploads/tentang/';
+            $config['upload_path']   = './uploads/tentang/';
             $config['allowed_types'] = 'jpg|jpeg|png|webp';
-            $config['encrypt_name'] = TRUE;
+            $config['encrypt_name']  = TRUE;
 
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('gambar')) {
-
                 $gambar = $this->upload->data('file_name');
             }
         }
 
         $data = [
-            'judul' => $this->input->post('judul'),
-            'deskripsi' => $this->input->post('deskripsi'),
-            'visi' => $this->input->post('visi'),
-            'misi' => $this->input->post('misi'),
-            'gambar' => $gambar
+            'judul'      => $this->input->post('judul'),
+            'deskripsi'  => $this->input->post('deskripsi'),
+            'visi'       => $this->input->post('visi'),
+            'misi'       => $this->input->post('misi'),
+            'gambar'     => $gambar
         ];
 
         $this->M_tentang->insert($data);
@@ -61,22 +88,30 @@ class Tentang extends CI_Controller
         redirect('tentang');
     }
 
+    // ======================================================
+    // UPDATE
+    // ======================================================
+
     public function update()
     {
+        if (!$this->session->userdata('id')) {
+            redirect('login');
+        }
+
         $id = $this->input->post('tentang_id');
 
         $data = [
-            'judul' => $this->input->post('judul'),
+            'judul'     => $this->input->post('judul'),
             'deskripsi' => $this->input->post('deskripsi'),
-            'visi' => $this->input->post('visi'),
-            'misi' => $this->input->post('misi')
+            'visi'      => $this->input->post('visi'),
+            'misi'      => $this->input->post('misi')
         ];
 
         if (!empty($_FILES['gambar']['name'])) {
 
-            $config['upload_path'] = './uploads/tentang/';
+            $config['upload_path']   = './uploads/tentang/';
             $config['allowed_types'] = 'jpg|jpeg|png|webp';
-            $config['encrypt_name'] = TRUE;
+            $config['encrypt_name']  = TRUE;
 
             $this->load->library('upload', $config);
 
@@ -92,8 +127,7 @@ class Tentang extends CI_Controller
                     unlink('./uploads/tentang/' . $lama->gambar);
                 }
 
-                $data['gambar'] =
-                    $this->upload->data('file_name');
+                $data['gambar'] = $this->upload->data('file_name');
             }
         }
 
@@ -107,8 +141,16 @@ class Tentang extends CI_Controller
         redirect('tentang');
     }
 
+    // ======================================================
+    // HAPUS
+    // ======================================================
+
     public function hapus($id)
     {
+        if (!$this->session->userdata('id')) {
+            redirect('login');
+        }
+
         $data = $this->M_tentang->get_by_id($id);
 
         if (
